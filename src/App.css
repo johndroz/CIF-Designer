@@ -24,6 +24,7 @@ html {
   font-size: 1.2em;
   padding: 0px;
   margin: 0px;
+  background-color: var(--main-bg);
 }
 
 :root {
@@ -45,6 +46,7 @@ html {
 nav {
   display: flex;
   flex-grow: 1;
+  background-color: var(--alt-color);
 }
 
 nav ul {
@@ -85,4 +87,32 @@ nav ul li {
 
 .toolbar-finish {
   flex-grow: 0.2;
+}
+
+/* DESIGNER */
+/***********************************/
+
+#design-front, #design-back {
+  width: 800px;
+  height: 800px;
+}
+
+/* PREVIEWS */
+/***********************************/
+
+#previews {
+  display: grid;
+  justify-content: center;
+  margin: 10px auto;
+  height: 0px;
+  overflow: hidden;
+}
+
+.preview-placement-choices {
+  height: 350px;
+}
+
+#preview-front, #preview-back {
+  width: 900px;
+  height: 900px;
 }
