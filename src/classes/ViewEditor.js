@@ -45,7 +45,7 @@ class ViewEditor{
             top: this.boundaryY,
             width: this.boundaryW,
             height: this.boundaryH,
-            fill: 'rbga(0,0,0)'
+            fill: 'rgba(0,0,0,0.1)'
         });
     }
 
