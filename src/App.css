@@ -67,6 +67,7 @@ nav ul li {
 .toolbar {
   display: flex;
   flex-grow: 1;
+  height: 75px;
 }
 
 .placement-choices {
@@ -79,6 +80,8 @@ nav ul li {
 
 .toolbar-icons {
   flex-grow: 1;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .toolbar-icons span {
@@ -89,12 +92,32 @@ nav ul li {
   flex-grow: 0.2;
 }
 
+#add-img {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: -5000px;
+}
+
+
 /* DESIGNER */
 /***********************************/
+
+#design-area {
+  display: flex;
+}
+
+#designs {
+  
+}
 
 #design-front, #design-back {
   width: 800px;
   height: 800px;
+}
+
+#designbar {
+  width: 400px;
 }
 
 /* PREVIEWS */

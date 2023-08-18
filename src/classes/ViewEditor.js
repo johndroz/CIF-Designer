@@ -10,6 +10,7 @@
             bgImg
             prevCanvas
             prevImg
+            designbar
             boundaryX
             boundaryY
             boundaryW
@@ -27,14 +28,19 @@ class ViewEditor{
             width: 800,
             height: 800,
             selection: false,
+            containerClass: props.container,
+            preserveObjectStacking: true
         });
         this.bgImg = props.bgImg;
         this.prevCanvas = new fabric.Canvas(props.prevCanvas, {
             width: 800,
             height: 800,
             selection: false,
+            containerClass: props.prevContainer,
+            preserveObjectStacking: true
         });
         this.prevImg = props.prevImg;
+        this.designbar = props.designbar;
         this.boundaryX = props.boundaryX;
         this.boundaryY = props.boundaryY;
         this.boundaryW = props.boundaryW;
@@ -45,13 +51,14 @@ class ViewEditor{
             top: this.boundaryY,
             width: this.boundaryW,
             height: this.boundaryH,
-            fill: 'rgba(0,0,0,0.1)'
+            fill: 'rgba(0,0,0,0)',
+            selectable: false
         });
+        this.setView = props.setView;
+        this.designElements = props.designElements;
     }
 
     configure(){
-
-
         //PREVIEW DESIGN BACKGROUND AND PREVIEW BACKGROUND
         new fabric.Image.fromURL(this.bgImg, (img)=>{
             this.canvas.setBackgroundImage(img, this.canvas.renderAll.bind(this.canvas), {
@@ -76,6 +83,7 @@ class ViewEditor{
         this.canvas.add(this.boundary);
         
     }
+
 }
 
 export default ViewEditor;
