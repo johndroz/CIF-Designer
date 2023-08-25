@@ -124,7 +124,8 @@ function Toolbar(){
       boundaryW: boundaryW,
       boundaryH: boundaryH,
       setView: document.getElementById('placement-front'),
-      designElements: []
+      designElements: [],
+      designIndex: 0
     };
 
     // EDITOR PROPERTIES BACK
@@ -144,7 +145,8 @@ function Toolbar(){
       boundaryW: boundaryW,
       boundaryH: boundaryH,
       setView: document.getElementById('placement-back'),
-      designElements: []
+      designElements: [],
+      designIndex: 0
     };
 
     const editorF = new ViewEditor(propsF);

@@ -29,10 +29,12 @@ class GlobalEditor{
 
             if(viewName != view.viewName){
                 document.querySelector('.' + view.canvas.containerClass).style.display = 'none';
+                view.designbar.style.display = 'none';
             }
 
             if(viewName == view.viewName){
                 document.querySelector('.' + view.canvas.containerClass).style.display = 'block';
+                view.designbar.style.display = 'flex';
                 this.activeView = view;
             }
             
@@ -40,11 +42,14 @@ class GlobalEditor{
     }
 
     addImage() {
+        
         this.fileInput.value = '';
         this.fileInput.click();
     }
 
     configure(){
+        const editor = this;
+
         // MAP THE VIEWS WITH THE PLACEMENT BUTTONS
         this.views.forEach(view => {
             view.setView.onclick = () => {
@@ -65,19 +70,14 @@ class GlobalEditor{
             this.addImage();
         }
         // FILE INPUT ADDS IMAGE INTO THE VIEW
-        var activeView = this.activeView;
-        var designElements = this.activeView.designElements;
         this.fileInput.addEventListener('change', function(e){
             var URL = window.webkitURL || window.URL;
             var url = URL.createObjectURL(e.target.files[0]);
             var img = new Image();
             img.src = url;
             img.onload = function(){
-
-                var newImg = new ImageElement(url, activeView);
-                newImg.configure();
-                designElements.push(newImg);       
-                
+                var newImg = new ImageElement(url, editor.activeView);
+                newImg.configure();      
             }
         });
 

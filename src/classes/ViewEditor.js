@@ -56,6 +56,11 @@ class ViewEditor{
         });
         this.setView = props.setView;
         this.designElements = props.designElements;
+        this.designIndex = props.designIndex;
+    }
+
+    getIndex(element){
+        return this.canvas.getObjects().indexOf(element);
     }
 
     configure(){
@@ -67,7 +72,7 @@ class ViewEditor{
             scaleX: this.canvas.width / img.width,
             scaleY: this.canvas.height / img.height
             });
-            console.log("bgImg: loaded");
+            console.log(this.viewName + " bgImg: loaded");
         });
 
         new fabric.Image.fromURL(this.prevImg, (img)=>{
@@ -77,7 +82,7 @@ class ViewEditor{
             scaleX: this.prevCanvas.width / img.width,
             scaleY: this.prevCanvas.height / img.height
             });
-            console.log("prevImg: loaded");
+            console.log(this.viewName + " prevImg: loaded");
         });
 
         this.canvas.add(this.boundary);

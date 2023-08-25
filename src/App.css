@@ -29,7 +29,10 @@ html {
 
 :root {
   --main-bg: #ebf2f5ff;
-  --alt-color: #B1C6E5;
+  --main-bg-h: #d8e1ed;
+  --main-bg-h2: #bdc7d5;
+  --alt-color: #adbed6;
+  --alt-color-lite: #dee4ee;
 
   --btn-main: #83e9e6ff;
   --btn-main-hvr: #63b4d1ff;
@@ -37,7 +40,7 @@ html {
   --btn-alt-hvr: ;
 
   --text-main: #2a2b2eff;
-  --text-alt: #7699d4ff;
+  --text-alt: #91a0ba;
 }
 
 /* NAVIGATION */
@@ -47,6 +50,7 @@ nav {
   display: flex;
   flex-grow: 1;
   background-color: var(--alt-color);
+  
 }
 
 nav ul {
@@ -57,8 +61,16 @@ nav ul {
 }
 
 nav ul li {
-  padding: 1.2em;
-  border-radius: 1.2em;
+  padding: 0.85em;
+  border-radius: 0.9em;
+  background-color: var(--text-alt);
+  margin: 2px;
+  
+}
+
+nav ul li a {
+  color: var(--btn-main);
+  font-weight: bold;
 }
 
 /* TOOLBAR */
@@ -100,7 +112,7 @@ nav ul li {
 }
 
 
-/* DESIGNER */
+/* DESIGNER & DESIGNBAR*/
 /***********************************/
 
 #design-area {
@@ -117,9 +129,97 @@ nav ul li {
 }
 
 #designbar {
-  width: 400px;
+  min-width: 400px;
 }
 
+#elements-front, #elements-back {
+  display: flex;
+  flex-direction: column;
+}
+
+.designbar-control {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 95%;
+  margin: 10px auto;
+  min-height: 100px;
+  background-color: var(--alt-color-lite);
+  border-radius: 10px;
+}
+
+.designbar-control:hover {
+  background-color: var(--main-bg-h);
+}
+
+.swatchContainer {
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  justify-content: center;
+  padding: 0.5em;
+  margin: auto;
+  width: 175px;
+}
+
+.swatch {
+  background-color: var(--text-alt);
+  grid-row-start: 1;
+  grid-row-end: 3;
+  width: 125px;
+  height: 125px;
+  margin: 0px 10px;
+  border-radius: 5px;
+}
+
+.swatch:hover {
+  cursor: pointer;
+}
+
+.designbar-controller-btnLayer {
+  width: 50px;
+  margin: 0px 2px;
+  border-radius: 10px;
+}
+
+.designbar-controller-btnLayer:hover {
+  background-color: var(--main-bg-h2);
+  box-shadow: 1px 1px 1px var(--alt-color);
+}
+
+.designbar-controller-btnLayer:active {
+  background-color: var(--alt-color);
+}
+
+.designbar-controller-delete {
+  margin: calc(10% - 20px) 10px;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  opacity: 0.65;
+}
+
+.designbar-controller-delete:hover {
+  opacity: 1;
+}
+
+.dim-wrap {
+width: 75px;
+margin: 5px;
+
+}
+
+.dim-wrap:hover {
+  background-color: var(--main-bg-h2);
+  box-shadow: 1px 1px 1px var(--alt-color);
+}
+
+.element-dim {
+  font-size: large;
+  width: 60px;
+  margin: 0px 2px;
+  border-radius: 5px;
+  border: 1px solid var(--text-alt);
+}
 /* PREVIEWS */
 /***********************************/
 
