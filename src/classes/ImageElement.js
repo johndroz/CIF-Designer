@@ -21,12 +21,21 @@ class ImageElement {
     hLabel = document.createElement('sub');
     index;
 
+    placeholder(image){
+        var scaleFactor = (433 / 22);
+        var width = (image.width * image.scaleX) / scaleFactor;
+        var height = (image.height * image.scaleY) / scaleFactor;
+
+        this.width.value = '';
+        this.height.value = '';
+        this.width.placeholder = width.toPrecision(4) + ' in.';
+        this.height.placeholder = height.toPrecision(4) + ' in.';
+    }
+
     updateDim(dim, image){
         var scaleFactor = (433 / 22);
-        var loadSize = 200;
         var newSize;
         var currentInput;
-        var ratio = image.width / image.height;
         var scale;
 
         if(dim == 'w'){
@@ -43,13 +52,13 @@ class ImageElement {
             currentInput.focus();
             return
           }
-          /*if(newSize > 99){
+          if(newSize / scaleFactor > 99){
             alert('Please enter in a smaller size');
             currentInput.value = '';
             currentInput.focus();
             return;
-          }*/
-          if(newSize < 1){
+          }
+          if(newSize / scaleFactor < 1){
             return
           }
           if(dim == 'w'){
@@ -61,8 +70,7 @@ class ImageElement {
             image.setCoords();
             this.view.canvas.requestRenderAll();
             this.width.value = '';
-            //this.width.placeholder = placeholder(dim, image);
-            //this.height.placeholder = placeholder('height', image);
+            this.placeholder(image);
           }
           if(dim == 'h'){
             scale = newSize / this.image.height;
@@ -70,11 +78,10 @@ class ImageElement {
             image.scaleY = scale;
             console.log('width: ' + image.width);
             console.log('height: ' + image.height);
-            this.view.canvas.setCoords();
+            image.setCoords();
             this.view.canvas.requestRenderAll();
             this.height.value = '';
-            //this.width.placeholder = placeholder(dim, image);
-            //this.height.placeholder = placeholder('width', image);
+            this.placeholder(image);
           }
 
           console.log('new size: ' + newSize);
@@ -90,19 +97,14 @@ class ImageElement {
 
             if(length > 0){
                 this.view.designElements.forEach((element)=>{
-                    console.log('fabric: ' + this.view.canvas.getObjects().indexOf(element.img));
-                    console.log('view method: ' + this.view.getIndex(element.img));
-
                     if(element.index > length){
                         element.img.moveTo(length);
                         element.index = length;
                         element.controller.style.order = length;
-                        console.log('last element: ' + this.view.getIndex(element.img));
                     }else{
                         var newIndex = this.view.canvas.getObjects().indexOf(element.img);
                         element.index = newIndex;
                         element.controller.style.order = newIndex;
-                        console.log('all elements less than length.');
                     }
                 });
             }
@@ -243,6 +245,7 @@ class ImageElement {
                 img.scaleX = scale;
                 img.scaleY = scale;
                 this.view.canvas.add(img);
+                this.placeholder(img);
 
                 // ARRANGE THE SIDEBAR ELEMENTS - SET INDEX USING LAYER POSITION 
                 this.arrangeDesignbar();
@@ -251,6 +254,7 @@ class ImageElement {
                 const boundingBox = this.view.boundary;
                 const movingBox = img;
                 const canvas = this.view.canvas;
+                const element = this;
                 var inbounds;
                 var location;
 
@@ -266,9 +270,11 @@ class ImageElement {
                             movingBox.setCoords();
                         });                     
                     }
-                    console.log("inbounds: " + inbounds);
-                    console.log('width: ' + (img.width * img.scaleX))
                 });
+
+                canvas.on("object:modified", function(e){
+                    element.placeholder(img);
+                })
                 
                 // INCREMENT DESIGN INDEX WHEN EVERYTHING HAS RENDERED ANYTIME ELEMENT ADDED TO THE CANVAS.
                 this.view.designIndex++; 
