@@ -22,53 +22,64 @@ class ImageElement {
     index;
 
     updateDim(dim, image){
+        var scaleFactor = (433 / 22);
         var loadSize = 200;
         var newSize;
         var currentInput;
         var ratio = image.width / image.height;
-        var scale = (this.image.width > this.image.height ? loadSize / this.image.width  : loadSize / this.image.height)
+        var scale;
 
         if(dim == 'w'){
-            newSize = Number(this.width.value);
+            newSize = Number(this.width.value) * scaleFactor;
             currentInput = this.width;
         }
         if(dim == 'h'){
-            newSize = Number(this.height.value);
+            newSize = Number(this.height.value) * scaleFactor;
             currentInput = this.height;
         }
         if(isNaN(newSize)){
             alert('Please enter in a number.');
             currentInput.value = '';
             currentInput.focus();
-            return;
+            return
           }
-          if(newSize > 99){
+          /*if(newSize > 99){
             alert('Please enter in a smaller size');
             currentInput.value = '';
             currentInput.focus();
             return;
-          }
+          }*/
           if(newSize < 1){
-            return;
+            return
           }
           if(dim == 'w'){
-            image.scaleX = (newSize * scale);
-            image.scaleY = (newSize * scale);
+            scale = newSize / this.image.width;
+            image.scaleX = scale;
+            image.scaleY = scale;
+            console.log('width: ' + image.width);
+            console.log('height: ' + image.height);
             image.setCoords();
             this.view.canvas.requestRenderAll();
             this.width.value = '';
-            //widthInput.placeholder = placeholder(dim, image);
-            //heightInput.placeholder = placeholder('height', image);
+            //this.width.placeholder = placeholder(dim, image);
+            //this.height.placeholder = placeholder('height', image);
           }
           if(dim == 'h'){
-            image.scaleX = (newSize * scale * ratio);
-            image.scaleY = (newSize * scale);
+            scale = newSize / this.image.height;
+            image.scaleX = scale;
+            image.scaleY = scale;
+            console.log('width: ' + image.width);
+            console.log('height: ' + image.height);
             this.view.canvas.setCoords();
             this.view.canvas.requestRenderAll();
             this.height.value = '';
-            //heightInput.placeholder = placeholder(dim, image);
-            //widthInput.placeholder = placeholder('width', image);
+            //this.width.placeholder = placeholder(dim, image);
+            //this.height.placeholder = placeholder('width', image);
           }
+
+          console.log('new size: ' + newSize);
+          console.log('scale: ' + scale + ' scaleFactor: ' + scaleFactor);
+          
 
     }
     
@@ -256,6 +267,7 @@ class ImageElement {
                         });                     
                     }
                     console.log("inbounds: " + inbounds);
+                    console.log('width: ' + (img.width * img.scaleX))
                 });
                 
                 // INCREMENT DESIGN INDEX WHEN EVERYTHING HAS RENDERED ANYTIME ELEMENT ADDED TO THE CANVAS.
