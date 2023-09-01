@@ -28,8 +28,9 @@ function Toolbar(){
               <button id="placement-back" className="placement-choice">Back</button>
             </div>
             <div className="toolbar-icons">
-                <span id="toolbar-add-img">Add Image<input id="add-img" type='file'></input></span>
-                <span id="toolbar-add-txt">Add Text</span>
+                <input type="image" src="image-icon.png" id="toolbar-add-img"></input>
+                <input id="add-img" type='file'></input>
+                <input type="image" src="add-Text.png" id="toolbar-add-txt"></input>
             </div>
             <div className="toolbar-finish">
               <button id="toolbar-preview" className="toolbar-btn">Preview</button>

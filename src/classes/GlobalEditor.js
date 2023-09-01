@@ -1,4 +1,5 @@
 import ImageElement from './ImageElement';
+import TextElement from './TextElement';
 
 // FUCTIONALITIES
 /*
@@ -64,6 +65,7 @@ class GlobalEditor{
         // SET THE GLOBAL BUTTONS
         this.imgButton = document.getElementById('toolbar-add-img');
         this.fileInput = document.getElementById('add-img');
+        this.textButton = document.getElementById('toolbar-add-txt');
 
         // TRIGGER THE FILE INPUT TO ADD IMAGES
         this.imgButton.onclick = () => {
@@ -80,6 +82,11 @@ class GlobalEditor{
                 newImg.configure();      
             }
         });
+
+        this.textButton.onclick = ()=>{
+            var newTxt = new TextElement(editor.activeView);
+            newTxt.configure();
+        }
 
 
         //this.textButton = document.getElementById('toolbar-add-txt');

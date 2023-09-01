@@ -1,16 +1,14 @@
+import { fabric } from "fabric";
 
-import {fabric} from 'fabric';
-
-class ImageElement {
-    constructor(imgSrc, view) {
-        this.imgSrc = imgSrc;
+class TextElement {
+    constructor(view){
         this.view = view;
     }
+
     id;
     controller = document.createElement('div');
     swatchContainer = document.createElement('div');
     swatch;
-    image = new Image();
     obj;
     btnDelete = document.createElement('input');
     btnMoveUp = document.createElement('input');
@@ -21,10 +19,10 @@ class ImageElement {
     hLabel = document.createElement('sub');
     index;
 
-    placeholder(image){
+    placeholder(element){
         var scaleFactor = (433 / 22);
-        var width = (image.width * image.scaleX) / scaleFactor;
-        var height = (image.height * image.scaleY) / scaleFactor;
+        var width = (element.width * element.scaleX) / scaleFactor;
+        var height = (element.height * element.scaleY) / scaleFactor;
 
         this.width.value = '';
         this.height.value = '';
@@ -32,7 +30,7 @@ class ImageElement {
         this.height.placeholder = height.toPrecision(4) + ' in.';
     }
 
-    updateDim(dim, image){
+    updateDim(dim, element){
         var scaleFactor = (433 / 22);
         var newSize;
         var currentInput;
@@ -62,26 +60,26 @@ class ImageElement {
             return
           }
           if(dim == 'w'){
-            scale = newSize / this.image.width;
-            image.scaleX = scale;
-            image.scaleY = scale;
-            console.log('width: ' + image.width);
-            console.log('height: ' + image.height);
-            image.setCoords();
+            scale = newSize / this.obj.width;
+            element.scaleX = scale;
+            element.scaleY = scale;
+            console.log('width: ' + element.width);
+            console.log('height: ' + element.height);
+            element.setCoords();
             this.view.canvas.requestRenderAll();
             this.width.value = '';
-            this.placeholder(image);
+            this.placeholder(element);
           }
           if(dim == 'h'){
-            scale = newSize / this.image.height;
-            image.scaleX = scale;
-            image.scaleY = scale;
-            console.log('width: ' + image.width);
-            console.log('height: ' + image.height);
-            image.setCoords();
+            scale = newSize / this.obj.height;
+            element.scaleX = scale;
+            element.scaleY = scale;
+            console.log('width: ' + element.width);
+            console.log('height: ' + element.height);
+            element.setCoords();
             this.view.canvas.requestRenderAll();
             this.height.value = '';
-            this.placeholder(image);
+            this.placeholder(element);
           }
 
           console.log('new size: ' + newSize);
@@ -110,51 +108,44 @@ class ImageElement {
             }
             
     }
-    
+
     configure(){
-        // GET DESIGN IDEX FOR ID OF CONTROLLER AND IMAGE ELEMENT
+        // GET DESIGN IDEX FOR ID OF CONTROLLER AND TEXT ELEMENT
         this.view.designElements.push(this);
         this.id = this.view.designIndex + this.view.viewName;
-        console.log("ImageElement: " + this.id);
+        console.log("TextElement: " + this.id);
 
+        // CREATE FABRIC TEXT
+        this.obj = new fabric.Textbox('Text', {
+            left: this.view.boundary.left,
+            top: this.view.boundary.top,
+            editable: true
+        });
 
-        // CREATE FABRIC IMAGE
-        this.image.src = this.imgSrc;
-        var image = this.image;
+        this.view.canvas.add(this.obj);
 
-        // IMAGE LOAD BEGINS
-        this.image.onload = ()=>{
-            var loadSize = 200;
-            var scale = (image.width > image.height ? loadSize / image.width  : loadSize / image.height);
-            new fabric.Image.fromURL(this.imgSrc, (img)=>{
+        // ADD CONTROLLER DIV TO DESIGNBAR ELEMENT - SET STYLE CLASS
+        this.controller.classList.add('designbar-control');
+        this.controller.id = this.id + 'controller';
+        this.view.designbar.appendChild(this.controller);
+        console.log(this.controller.id);
 
-                // ASSOCIATE DESIGN ELEMENT WITH FABRIC OBJECT
-                this.obj = img;
+        // ADD TEXT SWATCH SECTION TO CONTROLLER
+        this.swatchContainer.classList.add('swatchContainer');
+        this.controller.appendChild(this.swatchContainer);
 
-                //SET ELEMENT ID TO CONTROLLER 
-                //CREATE DESIGNBAR ELEMENT
+        // INSERT THE SWATCH - SIZE DEFINED IN CSS CLASS
+        this.swatch = document.createElement('div');
+        this.swatch.innerHTML = 'Aa';
+        this.swatch.classList.add('swatch');
+        this.swatch.onclick = ()=>{
+            this.view.canvas.discardActiveObject();
+            this.view.canvas.setActiveObject(this.obj);
+            this.view.canvas.requestRenderAll();
+        };
+        this.swatchContainer.appendChild(this.swatch);
 
-                // ADD CONTROLLER DIV TO DESIGNBAR ELEMENT - SET STYLE CLASS
-                this.controller.classList.add('designbar-control');
-                this.controller.id = this.id + 'controller';
-                this.view.designbar.appendChild(this.controller);
-                console.log(this.controller.id);
-
-                // ADD SWATCH SECTION TO CONTROLLER
-                this.swatchContainer.classList.add('swatchContainer');
-                this.controller.appendChild(this.swatchContainer);
-
-                // INSERT THE SWATCH - SIZE DEFINED IN CSS CLASS
-                this.swatch = this.image.cloneNode();
-                this.swatch.classList.add('swatch');
-                this.swatch.onclick = ()=>{
-                    this.view.canvas.discardActiveObject();
-                    this.view.canvas.setActiveObject(this.obj);
-                    this.view.canvas.requestRenderAll();
-                };
-                this.swatchContainer.appendChild(this.swatch);
-
-                // BUTTONS FOR LAYER UP OR LAYER DOWN
+        // BUTTONS FOR LAYER UP OR LAYER DOWN
                 // BUTTON MOVE UP
                 this.btnMoveUp.classList.add('designbar-controller-btnLayer');
                 this.btnMoveUp.type = 'image';
@@ -163,7 +154,7 @@ class ImageElement {
                     var len = this.view.designElements.length;
                     console.log('old index position: ' + this.index);
                     if(len > 1 && this.index < len) {
-                        img.moveTo(this.index + 1);
+                        element.obj.moveTo(this.index + 1);
                         console.log('new index position: ' + this.index);   
                     }
                     this.arrangeDesignbar();
@@ -179,7 +170,7 @@ class ImageElement {
 
                     console.log('old index position: ' + this.index);
                     if(len > 1 && this.index > 1) {
-                        img.moveTo(this.index - 1);
+                        element.obj.moveTo(this.index - 1);
                         console.log('new index position: ' + this.index);   
                     }
                     this.arrangeDesignbar();
@@ -206,25 +197,26 @@ class ImageElement {
                 this.height.classList.add('element-dim');
 
                 this.width.onblur = ()=>{
-                    this.updateDim('w', img);
+                    this.updateDim('w', this.obj);
                 }
                 this.width.onkeyup = (e)=>{
                     if(e.key === 'Enter'){
-                        this.updateDim('w', img);
+                        this.updateDim('w', this.obj);
                     }
                 }
                 this.height.onblur = ()=>{
-                    this.updateDim('h', img);
+                    this.updateDim('h', this.obj);
                 }
                 this.height.onkeyup = (e)=>{
                     if(e.key === 'Enter'){
-                        this.updateDim('h', img);
+                        this.updateDim('h', this.obj);
                     }
                 }
 
                 wWrap.append(this.wLabel, this.width);
                 hWrap.append(this.hLabel, this.height);
 
+// ------------------------------
 
                 // BUTTON DELETE
                 this.btnDelete.classList.add('designbar-controller-delete');
@@ -233,27 +225,19 @@ class ImageElement {
                 this.controller.appendChild(this.btnDelete);
                 this.btnDelete.onclick = ()=>{
                     this.controller.remove();
-                    this.image.remove();
                     this.view.designElements.splice(this.view.designElements.indexOf(this), 1);
-                    this.view.canvas.remove(img);
+                    this.view.canvas.remove(this.obj);
                     this.view.canvas.requestRenderAll();
                     this.arrangeDesignbar();
                 };
 
-                // PROPERTIES OF THE CANVAS IMAGE OBJECT
-                img.left = this.view.boundary.left;
-                img.top = this.view.boundary.top;
-                img.scaleX = scale;
-                img.scaleY = scale;
-                this.view.canvas.add(img);
-                this.placeholder(img);
-
                 // ARRANGE THE SIDEBAR ELEMENTS - SET INDEX USING LAYER POSITION 
                 this.arrangeDesignbar();
+                this.placeholder(this.obj);
 
-                // SET DRAG LIMIT FOR IMAGE
+                // SET DRAG LIMIT FOR TEXT
                 const boundingBox = this.view.boundary;
-                const movingBox = img;
+                const movingBox = this.obj;
                 const canvas = this.view.canvas;
                 const element = this;
                 var inbounds;
@@ -274,21 +258,22 @@ class ImageElement {
                 });
 
                 canvas.on("object:modified", function(e){
-                    element.placeholder(img);
-                })
+                    element.placeholder(e.target);
+                });
+
+                this.obj.onKeyUp = ()=>{
+                    var text = this.obj.text;
+                    if(text.length > 10){
+                        text = text.substring(0, 10);
+                    }    
+                    this.swatch.innerHTML = text;
+                }
                 
                 // INCREMENT DESIGN INDEX WHEN EVERYTHING HAS RENDERED ANYTIME ELEMENT ADDED TO THE CANVAS.
-                this.view.designIndex++; 
-             });
-             // IMAGE LOAD ENDS
-
-             
+                this.view.designIndex++;
 
 
-        }
     }
-
-
 }
 
-export default ImageElement;
+export default TextElement;
