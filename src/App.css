@@ -219,8 +219,19 @@ nav ul li a {
   background-color: var(--alt-color);
 }
 
+.btnContainer {
+  padding: 5px;
+  display: flex;
+  min-width: 50px;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+select {
+  width: 70px;
+}
+
 .designbar-controller-delete {
-  margin: calc(10% - 20px) 10px;
   padding: 5px;
   width: 40px;
   height: 40px;

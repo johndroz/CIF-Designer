@@ -10,6 +10,20 @@ class TextElement {
     swatchContainer = document.createElement('div');
     swatch;
     obj;
+    btnContainer = document.createElement('div');
+    color = document.createElement('input');
+    font = document.createElement('select');
+    fonts = [
+        'Arial',
+        'Verdana',
+        'Tahoma',
+        'Trebuchet MS',
+        'Times New Roman',
+        'Georgia',
+        'Garamond',
+        'Courier New',
+        'Brush Script MT'
+    ];
     btnDelete = document.createElement('input');
     btnMoveUp = document.createElement('input');
     btnMoveDown = document.createElement('input');
@@ -217,12 +231,15 @@ class TextElement {
                 hWrap.append(this.hLabel, this.height);
 
 // ------------------------------
+                // CONTAINER FOR COLOR PICKER - FONT DROPDOWN - DELETE BUTTON
+                this.btnContainer.classList.add('btnContainer');
+                this.controller.appendChild(this.btnContainer);
 
                 // BUTTON DELETE
                 this.btnDelete.classList.add('designbar-controller-delete');
                 this.btnDelete.type = 'image';
                 this.btnDelete.src = 'dustbin.png';
-                this.controller.appendChild(this.btnDelete);
+                this.btnContainer.appendChild(this.btnDelete);
                 this.btnDelete.onclick = ()=>{
                     this.controller.remove();
                     this.view.designElements.splice(this.view.designElements.indexOf(this), 1);
@@ -230,6 +247,16 @@ class TextElement {
                     this.view.canvas.requestRenderAll();
                     this.arrangeDesignbar();
                 };
+
+                // COLOR & FONT PICKER
+                this.color.type = 'color';
+                this.btnContainer.appendChild(this.color);
+
+                this.fonts.forEach((font)=>{
+                    this.font.innerHTML += '<option>' + font + '</option>';
+                });
+                this.btnContainer.appendChild(this.font);
+                
 
                 // ARRANGE THE SIDEBAR ELEMENTS - SET INDEX USING LAYER POSITION 
                 this.arrangeDesignbar();
