@@ -123,6 +123,10 @@ class TextElement {
             
     }
 
+    updateColor(){
+        //
+    }
+
     configure(){
         // GET DESIGN IDEX FOR ID OF CONTROLLER AND TEXT ELEMENT
         this.view.designElements.push(this);
@@ -290,11 +294,31 @@ class TextElement {
 
                 this.obj.onKeyUp = ()=>{
                     var text = this.obj.text;
-                    if(text.length > 10){
-                        text = text.substring(0, 10);
-                    }    
-                    this.swatch.innerHTML = text;
+                    var swatchWidth = 125;
+                    var fontSize = swatchWidth / (text.length / 5.5);
+
+                    if(text.length <= 18){
+                        fontSize = 20;
+                        this.swatch.style = 'font-size: ' + fontSize; 
+                        this.swatch.innerHTML = text;
+                    }
+                    if(text.length > 18 && fontSize > 16){
+                        //text = text.substring(0, 10);
+                        fontSize = fontSize + 'px';
+                        this.swatch.style = 'font-size: ' + fontSize; 
+                        this.swatch.innerHTML = text;
+                    }
+                    else {
+                        this.swatch.innerHTML = text;
+                    }
+                    console.log('font-size: ' + fontSize);
+                    console.log('length: ' + text.length);
+                    
                 }
+
+
+
+                
                 
                 // INCREMENT DESIGN INDEX WHEN EVERYTHING HAS RENDERED ANYTIME ELEMENT ADDED TO THE CANVAS.
                 this.view.designIndex++;
