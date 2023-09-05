@@ -14,15 +14,17 @@ class TextElement {
     color = document.createElement('input');
     font = document.createElement('select');
     fonts = [
-        'Arial',
         'Verdana',
+        'Arial',
         'Tahoma',
         'Trebuchet MS',
         'Times New Roman',
+        'Geneva',
         'Georgia',
         'Garamond',
         'Courier New',
-        'Brush Script MT'
+        'Brush Script MT',
+        'sans-serif'
     ];
     btnDelete = document.createElement('input');
     btnMoveUp = document.createElement('input');
@@ -124,7 +126,17 @@ class TextElement {
     }
 
     updateColor(){
-        //
+        var color = this.color.value;
+        this.obj.set({fill: color});
+        this.swatch.style.color = color;
+
+    }
+
+    updateFont(){
+        var font = this.font.value;
+        this.obj.fontFamily = font;
+        this.view.canvas.requestRenderAll();
+        this.swatch.style.fontFamily = font;
     }
 
     configure(){
@@ -137,7 +149,8 @@ class TextElement {
         this.obj = new fabric.Textbox('Text', {
             left: this.view.boundary.left,
             top: this.view.boundary.top,
-            editable: true
+            editable: true,
+            fontFamily: 'Verdana'
         });
 
         this.view.canvas.add(this.obj);
@@ -255,11 +268,17 @@ class TextElement {
                 // COLOR & FONT PICKER
                 this.color.type = 'color';
                 this.btnContainer.appendChild(this.color);
+                this.color.addEventListener('change', ()=>{
+                    this.updateColor();
+                });
 
                 this.fonts.forEach((font)=>{
                     this.font.innerHTML += '<option>' + font + '</option>';
                 });
                 this.btnContainer.appendChild(this.font);
+                this.font.addEventListener('change', ()=>{
+                    this.updateFont();
+                });
                 
 
                 // ARRANGE THE SIDEBAR ELEMENTS - SET INDEX USING LAYER POSITION 
@@ -292,6 +311,7 @@ class TextElement {
                     element.placeholder(e.target);
                 });
 
+                // UPDATE TEXT IN SWATCH TO MATCH ELEMENT
                 this.obj.onKeyUp = ()=>{
                     var text = this.obj.text;
                     var swatchWidth = 125;
@@ -299,13 +319,13 @@ class TextElement {
 
                     if(text.length <= 18){
                         fontSize = 20;
-                        this.swatch.style = 'font-size: ' + fontSize; 
+                        this.swatch.style.fontSize = fontSize; 
                         this.swatch.innerHTML = text;
                     }
                     if(text.length > 18 && fontSize > 16){
                         //text = text.substring(0, 10);
                         fontSize = fontSize + 'px';
-                        this.swatch.style = 'font-size: ' + fontSize; 
+                        this.swatch.style.fontSize = fontSize; 
                         this.swatch.innerHTML = text;
                     }
                     else {
