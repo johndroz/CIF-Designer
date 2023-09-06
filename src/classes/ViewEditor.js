@@ -75,12 +75,12 @@ class ViewEditor{
             console.log(this.viewName + " bgImg: loaded");
         });
 
-        new fabric.Image.fromURL(this.prevImg, (img)=>{
-            this.prevCanvas.setBackgroundImage(img, this.prevCanvas.renderAll.bind(this.prevCanvas), {
+        new fabric.Image.fromURL(this.prevImg, (prevImg)=>{
+            this.prevCanvas.setBackgroundImage(prevImg, this.prevCanvas.renderAll.bind(this.prevCanvas), {
             originX: 0,
             originY: 0,
-            scaleX: this.prevCanvas.width / img.width,
-            scaleY: this.prevCanvas.height / img.height
+            scaleX: this.prevCanvas.width / prevImg.width,
+            scaleY: this.prevCanvas.height / prevImg.height
             });
             console.log(this.viewName + " prevImg: loaded");
         });

@@ -35,6 +35,10 @@ function Toolbar(){
             <div className="toolbar-finish">
               <button id="toolbar-preview" className="toolbar-btn">Preview</button>
             </div>
+            <div className="prev-buttons">
+            <button id="preview-close" className="toolbar-btn">Close</button>
+            <button id="preview-save" className="toolbar-btn">Save</button>
+          </div>
           </div>
       </>
     )
@@ -58,6 +62,7 @@ function Toolbar(){
           <canvas id="design-front"></canvas>
           <canvas id="design-back"></canvas>
         </div>
+        <Previews/>
       </div>
       
         
@@ -71,21 +76,9 @@ function Toolbar(){
     function Previews(){
       return (
         <div id="previews">
-          <div className="preview-placement-choices">
-            <button id="preview-placement-front" className="preview-placement-choice">Front</button>
-            <button id="preview-placement-back" className="preview-placement-choice">Back</button>
-          </div>
           <canvas id="preview-front"></canvas>
           <canvas id="preview-back"></canvas>
-    
-          <div className="prev-buttons">
-            <button id="preview-close" className="preview-pane-btn">Close</button>
-            <button id="preview-save" className="preview-pane-btn">Save</button>
-          </div>
-    
-        </div>
-          
-        
+        </div> 
       )
     }
 
@@ -98,9 +91,6 @@ function Toolbar(){
 
     componentDidMount(){
       // BOUNDARY PROPERTIES
-    /* let ppi = 21;
-    let boundarySizeW = 11;
-    let boundarySizeH = 8.25;*/
     let designerWidth = 800;
     let designerHeight = 800;
     let boundaryW = designerWidth * 0.9;
@@ -127,7 +117,7 @@ function Toolbar(){
       setView: document.getElementById('placement-front'),
       designElements: [],
       designIndex: 0
-    };
+    }
 
     // EDITOR PROPERTIES BACK
     let imgB = 'shirt-template-back.jpg';
@@ -137,7 +127,7 @@ function Toolbar(){
       canvas: document.getElementById('design-back'),
       container: 'design-back-container',
       bgImg: imgB,
-      preCanvas: document.getElementById('preview-back'),
+      prevCanvas: document.getElementById('preview-back'),
       prevContainer: 'preview-back-container',
       prevImg: previmgB,
       designbar: document.getElementById('elements-back'),
@@ -148,16 +138,17 @@ function Toolbar(){
       setView: document.getElementById('placement-back'),
       designElements: [],
       designIndex: 0
-    };
+    }
 
     const editorF = new ViewEditor(propsF);
-    const editorB = new ViewEditor(propsB);
     editorF.configure();
+
+    const editorB = new ViewEditor(propsB);
     editorB.configure();
+    
 
     //CREATE GLOBAL EDITORS - DEFINE VIEWS & UI BUTTONS
-    let views = [];
-    views.push(editorF, editorB);
+    let views = [editorF, editorB];
 
     const globalEditor = new GlobalEditor(views);
     globalEditor.configure();
@@ -169,7 +160,6 @@ function Toolbar(){
         <>
           <Toolbar/>
           <DesignArea/>
-          <Previews/>
         </>
         
       );

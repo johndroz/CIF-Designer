@@ -129,6 +129,11 @@ nav ul li a {
   flex-grow: 0.2;
 }
 
+.prev-buttons {
+  display: none;
+  flex-grow: 0.2;
+}
+
 #add-img {
   visibility: hidden;
   position: absolute;
@@ -155,6 +160,8 @@ nav ul li a {
 
 #designbar {
   min-width: 400px;
+  max-height: 800px;
+  overflow: scroll;
 }
 
 #elements-front, #elements-back {
@@ -273,19 +280,13 @@ margin: 5px;
 /***********************************/
 
 #previews {
-  display: grid;
-  justify-content: center;
+  display: none;
   margin: 10px auto;
-  height: 0px;
-  overflow: hidden;
-}
-
-.preview-placement-choices {
-  height: 350px;
+  transition: 1.5s ease-in;
 }
 
 #preview-front, #preview-back {
-  width: 900px;
-  height: 900px;
+  width: 800px;
+  height: 800px;
   
 }
