@@ -292,20 +292,26 @@ class TextElement {
                 const element = this;
                 var inbounds;
                 var location;
+                var selected;
 
                 canvas.on("object:moving", function(e) {
-                    if(movingBox.intersectsWithObject(boundingBox)){
+                    selected = canvas.getActiveObjects().length > 1 ? e.target : movingBox;
+                    if(selected.intersectsWithObject(boundingBox)){
                         inbounds = true;
-                        location = movingBox._getCoords();
+                        location = selected._getCoords();
                     } else {
-                        inbounds = false;
-                        canvas.on("mouse:up", function(e){  
-                            movingBox.left = location.tl.x;
-                            movingBox.top = location.tl.y;
-                            movingBox.setCoords();
-                        });                     
+                        inbounds = false;                    
                     }
                 });
+
+                canvas.on("mouse:up", function(e){  
+                    if(!inbounds){
+                        selected.left = location.tl.x;
+                        selected.top = location.tl.y;
+                        selected.setCoords();
+                    }
+                    
+                }); 
 
                 canvas.on("object:modified", function(e){
                     element.placeholder(element.obj);
@@ -335,10 +341,6 @@ class TextElement {
                     console.log('length: ' + text.length);
                     
                 }
-
-
-
-                
                 
                 // INCREMENT DESIGN INDEX WHEN EVERYTHING HAS RENDERED ANYTIME ELEMENT ADDED TO THE CANVAS.
                 this.view.designIndex++;

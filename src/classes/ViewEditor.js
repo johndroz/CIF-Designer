@@ -27,7 +27,7 @@ class ViewEditor{
         this.canvas = new fabric.Canvas(props.canvas, {
             width: 800,
             height: 800,
-            selection: false,
+            selection: true,
             containerClass: props.container,
             preserveObjectStacking: true
         });
