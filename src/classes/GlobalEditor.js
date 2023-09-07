@@ -57,6 +57,7 @@ class GlobalEditor{
         document.querySelector('.prev-buttons').style.display = 'none';
         document.querySelector('.toolbar-finish').style.display = 'block';
         document.getElementById('designbar').style.visibility = 'visible';
+        document.querySelector('.toolbar-icons').style.visibility = 'visible';
     }
 
     preview(){
@@ -66,6 +67,7 @@ class GlobalEditor{
         document.getElementById('designs').style.display = 'none';
         document.querySelector('.toolbar-finish').style.display = 'none';
         document.getElementById('designbar').style.visibility = 'hidden';
+        document.querySelector('.toolbar-icons').style.visibility = 'hidden';
 
         // LOOP THROUGH THE VIEWS
         this.views.forEach((view)=>{

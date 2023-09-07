@@ -308,7 +308,7 @@ class TextElement {
                 });
 
                 canvas.on("object:modified", function(e){
-                    element.placeholder(e.target);
+                    element.placeholder(element.obj);
                 });
 
                 // UPDATE TEXT IN SWATCH TO MATCH ELEMENT
