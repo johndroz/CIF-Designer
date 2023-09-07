@@ -52,7 +52,8 @@ class ViewEditor{
             width: this.boundaryW,
             height: this.boundaryH,
             fill: 'rgba(0,0,0,0)',
-            selectable: false
+            selectable: false,
+            excludeFromExport: true
         });
         this.setView = props.setView;
         this.designElements = props.designElements;
@@ -63,6 +64,17 @@ class ViewEditor{
         return this.canvas.getObjects().indexOf(element);
     }
 
+    newPreview(){
+        new fabric.Image.fromURL(this.prevImg, (prevImg)=>{
+            this.prevCanvas.setBackgroundImage(prevImg, this.prevCanvas.renderAll.bind(this.prevCanvas), {
+            originX: 0,
+            originY: 0,
+            scaleX: this.prevCanvas.width / prevImg.width,
+            scaleY: this.prevCanvas.height / prevImg.height
+            });
+        });
+    }
+
     configure(){
         //PREVIEW DESIGN BACKGROUND AND PREVIEW BACKGROUND
         new fabric.Image.fromURL(this.bgImg, (img)=>{
@@ -70,7 +82,8 @@ class ViewEditor{
             originX: 0,
             originY: 0,
             scaleX: this.canvas.width / img.width,
-            scaleY: this.canvas.height / img.height
+            scaleY: this.canvas.height / img.height,
+            excludeFromExport: true
             });
             console.log(this.viewName + " bgImg: loaded");
         });
@@ -80,7 +93,7 @@ class ViewEditor{
             originX: 0,
             originY: 0,
             scaleX: this.prevCanvas.width / prevImg.width,
-            scaleY: this.prevCanvas.height / prevImg.height
+            scaleY: this.prevCanvas.height / prevImg.height,
             });
             console.log(this.viewName + " prevImg: loaded");
         });

@@ -35,13 +35,13 @@ class GlobalEditor{
 
             if(viewName != view.viewName){
                 canvas.style.display = 'none';
-                //preview.style.display = 'none';
+                preview.style.display = 'none';
                 view.designbar.style.display = 'none';
             }
 
             if(viewName == view.viewName){
                 canvas.style.display = 'block';
-                //preview.style.display = 'block';
+                preview.style.display = 'block';
                 view.designbar.style.display = 'flex';
                 this.activeView = view;
                 console.log(preview);
@@ -51,11 +51,47 @@ class GlobalEditor{
         });
     }
 
+    showDesign(){
+        document.getElementById('previews').style.display = 'none';
+        document.getElementById('designs').style.display = 'block';
+        document.querySelector('.prev-buttons').style.display = 'none';
+        document.querySelector('.toolbar-finish').style.display = 'block';
+        document.getElementById('designbar').style.visibility = 'visible';
+    }
+
     preview(){
+        // MAKE PREVIEW VISIBLE
         document.getElementById('previews').style.display = 'block';
         document.getElementsByClassName('prev-buttons')[0].style.display = 'block';
         document.getElementById('designs').style.display = 'none';
         document.querySelector('.toolbar-finish').style.display = 'none';
+        document.getElementById('designbar').style.visibility = 'hidden';
+
+        // LOOP THROUGH THE VIEWS
+        this.views.forEach((view)=>{
+            let preview = view.prevCanvas;
+            let canvasGraphics;
+
+            // CLEAR OLD PREVIEWS
+            preview.clear();
+            view.newPreview();
+
+            // RENDER GRAPHICS INTO PREVIEW
+            if(view.designElements.length > 0){
+                canvasGraphics = view.canvas.toJSON();
+                view.prevCanvas.loadFromJSON(canvasGraphics, ()=>{
+                    var objects = view.prevCanvas.getObjects();
+                    objects.forEach((obj)=>{
+                        obj.set({selectable: false, opacity: 0.83});
+                    });
+                    view.prevCanvas.renderAll.bind(view.prevCanvas)});
+                    view.newPreview();
+                
+            }
+
+            
+
+        });
     }
 
     addImage() {
@@ -115,10 +151,7 @@ class GlobalEditor{
 
         // TOOLBAR BUTTON - PREVIEW CLOSE
         this.previewClose.onclick = ()=>{
-            document.getElementById('previews').style.display = 'none';
-            document.getElementById('designs').style.display = 'block';
-            document.querySelector('.prev-buttons').style.display = 'none';
-            document.querySelector('.toolbar-finish').style.display = 'block';
+            this.showDesign();
             
         }
 
