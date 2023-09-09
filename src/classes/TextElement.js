@@ -293,9 +293,11 @@ class TextElement {
                 var inbounds;
                 var location;
                 var selected;
+                var selectedItems;
 
                 canvas.on("object:moving", function(e) {
-                    selected = canvas.getActiveObjects().length > 1 ? e.target : movingBox;
+                    selectedItems = canvas.getActiveObjects();
+                    selected = selectedItems.length > 1 ? e.target : movingBox;
                     if(selected.intersectsWithObject(boundingBox)){
                         inbounds = true;
                         location = selected._getCoords();
