@@ -170,9 +170,14 @@ class TextElement {
         this.swatch.innerHTML = 'Aa';
         this.swatch.classList.add('swatch');
         this.swatch.onclick = ()=>{
+            if(!this.obj.intersectsWithObject(this.view.boundary)){
+                this.obj.left = this.view.boundary.left;
+                this.obj.top = this.view.boundary.top;           
+            }
             this.view.canvas.discardActiveObject();
             this.view.canvas.setActiveObject(this.obj);
-            this.view.canvas.requestRenderAll();
+            this.obj.setCoords();
+            this.view.canvas.renderAll();
         };
         this.swatchContainer.appendChild(this.swatch);
 
@@ -291,7 +296,7 @@ class TextElement {
                 const canvas = this.view.canvas;
                 const element = this;
                 var inbounds;
-                var location;
+                var location = movingBox.aCoords;
                 var selected;
                 var selectedItems;
 
@@ -300,20 +305,26 @@ class TextElement {
                     selected = selectedItems.length > 1 ? e.target : movingBox;
                     if(selected.intersectsWithObject(boundingBox)){
                         inbounds = true;
-                        location = selected._getCoords();
+                        location = selected.aCoords;
                     } else {
-                        inbounds = false;                    
-                    }
-                });
-
-                canvas.on("mouse:up", function(e){  
-                    if(!inbounds){
-                        selected.left = location.tl.x;
-                        selected.top = location.tl.y;
-                        selected.setCoords();
+                        inbounds = false;
+                        selected.on("mouseup", function(e){  
+                            if(!inbounds){
+                                selected.left = location.tl.x;
+                                selected.top = location.tl.y;
+                                selected.setCoords();
+                            }
+                        });  
                     }
                     
-                }); 
+                    selected.on("deselected", function(e){
+                        if(!movingBox.intersectsWithObject(boundingBox)){
+                            movingBox.left = boundingBox.left
+                            movingBox.top = boundingBox.top;
+                            movingBox.setCoords();
+                        }
+                    });
+                });
 
                 canvas.on("object:modified", function(e){
                     element.placeholder(element.obj);

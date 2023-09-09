@@ -148,9 +148,14 @@ class ImageElement {
                 this.swatch = this.image.cloneNode();
                 this.swatch.classList.add('swatch');
                 this.swatch.onclick = ()=>{
+                    if(!this.obj.intersectsWithObject(this.view.boundary)){
+                        this.obj.left = this.view.boundary.left;
+                        this.obj.top = this.view.boundary.top;           
+                    }
                     this.view.canvas.discardActiveObject();
                     this.view.canvas.setActiveObject(this.obj);
-                    this.view.canvas.requestRenderAll();
+                    this.obj.setCoords();
+                    this.view.canvas.renderAll();
                 };
                 this.swatchContainer.appendChild(this.swatch);
 
@@ -251,33 +256,41 @@ class ImageElement {
                 // ARRANGE THE SIDEBAR ELEMENTS - SET INDEX USING LAYER POSITION 
                 this.arrangeDesignbar();
 
-                // SET DRAG LIMIT FOR IMAGE
+                // SET DRAG LIMIT FOR TEXT
                 const boundingBox = this.view.boundary;
                 const movingBox = this.obj;
                 const canvas = this.view.canvas;
                 const element = this;
                 var inbounds;
-                var location;
+                var location = movingBox.aCoords;
                 var selected;
+                var selectedItems;
 
                 canvas.on("object:moving", function(e) {
-                    selected = canvas.getActiveObjects().length > 1 ? e.target : movingBox;
+                    selectedItems = canvas.getActiveObjects();
+                    selected = selectedItems.length > 1 ? e.target : movingBox;
                     if(selected.intersectsWithObject(boundingBox)){
                         inbounds = true;
-                        location = selected._getCoords();
+                        location = selected.aCoords;
                     } else {
-                        inbounds = false;                    
-                    }
-                });
-
-                canvas.on("mouse:up", function(e){  
-                    if(!inbounds){
-                        selected.left = location.tl.x;
-                        selected.top = location.tl.y;
-                        selected.setCoords();
+                        inbounds = false;
+                        selected.on("mouseup", function(e){  
+                            if(!inbounds){
+                                selected.left = location.tl.x;
+                                selected.top = location.tl.y;
+                                selected.setCoords();
+                            }
+                        });  
                     }
                     
-                }); 
+                    selected.on("deselected", function(e){
+                        if(!movingBox.intersectsWithObject(boundingBox)){
+                            movingBox.left = boundingBox.left
+                            movingBox.top = boundingBox.top;
+                            movingBox.setCoords();
+                        }
+                    });
+                });
 
                 canvas.on("object:modified", function(e){
                     element.placeholder(img);
