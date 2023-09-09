@@ -184,6 +184,11 @@ nav ul li a {
   background-color: var(--main-bg-h);
 }
 
+.selected {
+  border: 3px solid var(--text-alt);
+  margin-bottom: 4px;
+}
+
 .swatchContainer {
   grid-template-columns: 1fr 1fr 1fr;
   display: grid;

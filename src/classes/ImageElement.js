@@ -107,8 +107,20 @@ class ImageElement {
                         element.controller.style.order = newIndex;
                     }
                 });
+            }       
+    }
+
+    objSelected(){
+        let selectedObjects = this.view.canvas.getActiveObjects();
+        let designElements = this.view.designElements;
+
+        designElements.forEach((elem)=>{
+            if(selectedObjects.includes(elem.obj)){
+                elem.controller.classList.add('selected');
+            } else {
+               elem.controller.classList.remove('selected');
             }
-            
+        })
     }
     
     configure(){
@@ -290,6 +302,15 @@ class ImageElement {
                             movingBox.setCoords();
                         }
                     });
+                });
+
+                // STYLE ACTIVE ELEMENT CONTROLLER
+                movingBox.on('deselected', function(e){
+                    element.objSelected();
+                });
+
+                movingBox.on('selected', function(e){
+                    element.objSelected();
                 });
 
                 canvas.on("object:modified", function(e){

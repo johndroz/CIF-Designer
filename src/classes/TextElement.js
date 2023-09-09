@@ -129,6 +129,7 @@ class TextElement {
         var color = this.color.value;
         this.obj.set({fill: color});
         this.swatch.style.color = color;
+        this.view.canvas.renderAll();
 
     }
 
@@ -137,6 +138,19 @@ class TextElement {
         this.obj.fontFamily = font;
         this.view.canvas.requestRenderAll();
         this.swatch.style.fontFamily = font;
+    }
+
+    objSelected(){
+        let selectedObjects = this.view.canvas.getActiveObjects();
+        let designElements = this.view.designElements;
+
+        designElements.forEach((elem)=>{
+            if(selectedObjects.includes(elem.obj)){
+                elem.controller.classList.add('selected');
+            } else {
+               elem.controller.classList.remove('selected');
+            }
+        })
     }
 
     configure(){
@@ -324,6 +338,15 @@ class TextElement {
                             movingBox.setCoords();
                         }
                     });
+                });
+
+                // STYLE ACTIVE ELEMENT CONTROLLER
+                movingBox.on('deselected', function(e){
+                    element.objSelected();
+                });
+
+                movingBox.on('selected', function(e){
+                    element.objSelected();
                 });
 
                 canvas.on("object:modified", function(e){
