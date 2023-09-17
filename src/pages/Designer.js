@@ -29,7 +29,7 @@ function Toolbar(){
             </div>
             <div className="toolbar-icons">
                 <input type="image" src="image-icon.png" id="toolbar-add-img"></input>
-                <input id="add-img" type='file'></input>
+                <input id="add-img" type='file' accept=".jpg, jpeg, .png"></input>
                 <input type="image" src="add-Text.png" id="toolbar-add-txt"></input>
             </div>
             <div className="toolbar-finish">
@@ -152,6 +152,7 @@ function Toolbar(){
 
     const globalEditor = new GlobalEditor(views);
     globalEditor.configure();
+
     }
     
     render(){
