@@ -1,6 +1,7 @@
 import React from 'react';
 
 class Login extends React.Component{
+
       login = (e)=>{
         e.preventDefault();
         var formData = new FormData();
@@ -8,15 +9,31 @@ class Login extends React.Component{
         formData.append('password', e.target.password.value);
         var message = document.getElementById('message');
         message.innerHTML = '';
-        //var url = '/users?username=' + e.target.username.value + '&password=' + e.target.password.value;
         var url = '/users';
-        fetch(url, {method: "POST", cache: "reload", body: new URLSearchParams(formData)})
-        .then((response)=>{
-          console.log(response);
-          return response.text();
+        fetch(url, {method: "POST", cache: "reload", body: new URLSearchParams(formData), redirect: 'follow'})
+        .then(res=>{
+          return res.json()
         })
-        .then(text=>{
-          message.innerHTML = text;
+        .then(res=>{
+          if(res.validated){
+            window.location.href = res.url
+          }else {
+            message.innerHTML = res.message;
+          }
+        })
+        .catch((err)=> console.log(err));
+      }
+
+      componentDidMount(){
+        // CHECK IF USER IS LOGGED IN.
+        fetch('/login', {method: "POST", cache: "reload", redirect: 'follow'})
+        .then((response)=>{
+          return response.json()
+        })
+        .then(res=>{
+          if(res.validated){
+            window.location.href = res.url
+          }
         })
         .catch((err)=> console.log(err));
       }
