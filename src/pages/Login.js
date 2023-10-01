@@ -43,6 +43,7 @@ class Login extends React.Component{
         return(
           <>
             <form id="login" action="/users" method='post' onSubmit={this.login}>
+              <h3>Log in here</h3>
                 <input id="username" name="username" placeholder='Username'></input>
                 <input id="password" name="password" placeholder='Password' type='password'></input>
                 <button type='submit'>Submit</button>

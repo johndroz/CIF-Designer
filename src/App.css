@@ -295,3 +295,44 @@ margin: 5px;
   height: 800px;
   
 }
+
+/* LOGIN PAGE*/
+/***********************************/
+#login {
+  width: 90%;
+  max-width: 750px;
+  display: grid;
+  justify-content: center;
+  margin: 10% auto;
+}
+
+#login button[type="submit"] {
+  width: 100px;
+  padding: 0.85em;
+  border-radius: 0.9em;
+  background-color: var(--text-alt);
+  margin: 10px auto;
+  box-shadow: 2px 2px 4px var(--text-alt);
+  color: var(--btn-main);
+  font-weight: bold;
+
+}
+
+#login button[type="submit"]:hover {
+  background-color: var(--text-main);
+}
+
+#login input {
+  font-size: 1em;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#message {
+  text-align: center;
+  color: red;
+}
+
+/* SIGN UP PAGE */
+/***********************************/

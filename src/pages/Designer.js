@@ -89,6 +89,10 @@ function Toolbar(){
       super(props);
     }
 
+    componentWillUnmount(){
+      
+    }
+
     componentDidMount(){
       // BOUNDARY PROPERTIES
     let designerWidth = 800;
