@@ -38,7 +38,7 @@ class Account extends React.Component{
                         // WRAPPER FOR NEW DESIGN
                         let newDesign = document.createElement('div');
                         newDesign.classList.add('newDesign');
-                        designArea.append(newDesign);
+                        designArea.appendChild(newDesign);
     
                         // TITLE, TOOLBAR & USER DESIGN FRONT/BACK STYLES
     
@@ -49,46 +49,51 @@ class Account extends React.Component{
                         let downloadBtn = document.createElement('input');
                         downloadBtn.type = 'button';
                         downloadBtn.value = "Download";
-                        tbDownload.append(downloadBtn);
+                        tbDownload.appendChild(downloadBtn);
     
-                        userTB.append(tbDownload);
+                        userTB.appendChild(tbDownload);
     
                         let designFront = document.createElement('canvas');
-                        designFront.id = 'user-design-front';
+                        designFront.id = design['_id'] + '-front';
     
                         let designBack = document.createElement('canvas');
-                        designBack.id = 'user-design-back';
+                        designBack.id = design['_id'] + '-back';
     
                         // ADD TOOLBAR, DESIGN FRONT, DESIGN BACK
                         newDesign.append(userTB, designFront, designBack);
 
-                        let front = new fabric.Canvas('user-design-front');
+                        let front = new fabric.Canvas(design['_id']+ '-front');
                         front.loadFromJSON(design.front, ()=>{
                             let objects = front.getObjects();
                             let scale = 300 / 800;
                             objects.forEach(o=>{
-                                o.scaleX = scale;
-                                o.scaleY = scale;
+                                o.scaleX *= scale;
+                                o.scaleY *= scale;
+                                o.left *= scale;
+                                o.top *= scale;
                             })
                             front.setHeight(300);
                             front.setWidth(300);
                             front.backgroundImage.scaleX *= scale;
                             front.backgroundImage.scaleY *= scale;
                             front.renderAll();
-                        });
-                        let back = new fabric.Canvas('user-design-back');
-                        back.loadFromJSON(design.back, ()=>{
-                            let objects = back.getObjects();
-                            let scale = 300 / 800;
-                            objects.forEach(o=>{
-                                o.scaleX = scale;
-                                o.scaleY = scale;
-                            })
-                            back.setHeight(300);
-                            back.setWidth(300);
-                            back.backgroundImage.scaleX *= scale;
-                            back.backgroundImage.scaleY *= scale;
-                            back.renderAll();
+
+                            let back = new fabric.Canvas(design['_id'] + '-back');
+                            back.loadFromJSON(design.back, ()=>{
+                                let obs = back.getObjects();
+                                let scl = 300 / 800;
+                                obs.forEach(o=>{
+                                    o.scaleX *= scl;
+                                    o.scaleY *= scl;
+                                    o.left *= scl;
+                                    o.top *= scl;
+                                })
+                                back.setHeight(300);
+                                back.setWidth(300);
+                                back.backgroundImage.scaleX *= scl;
+                                back.backgroundImage.scaleY *= scl;
+                                back.renderAll();
+                            });
                         });
     
                     })

@@ -1,4 +1,3 @@
-import { Form } from 'react-router-dom';
 import ImageElement from './ImageElement';
 import TextElement from './TextElement';
 
@@ -104,12 +103,8 @@ class GlobalEditor{
 
     save(){
         let formData = new FormData();
-        this.views.forEach((view, i)=>{
-            if(i == 0){
-                formData.append('front', JSON.stringify(view.prevCanvas.toJSON()))
-            }else{
-                formData.append('back', JSON.stringify(view.prevCanvas.toJSON()))
-            }
+        this.views.forEach((view)=>{
+            formData.append(view.viewName, JSON.stringify(view.prevCanvas))
         });
 
         fetch('/save', {method: 'POST', body: new URLSearchParams(formData)})
