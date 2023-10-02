@@ -157,10 +157,28 @@ function Toolbar(){
     const globalEditor = new GlobalEditor(views);
     globalEditor.configure();
 
+    //check if logged in
+    let saveBtn = document.getElementById('preview-save');
+    fetch('/login', {method: 'POST'})
+    .then((response)=>{
+      return response.json()
+      .then(obj=>{
+        if(!obj.validated){
+          saveBtn.innerHTML = 'Log in to save';
+          saveBtn.disabled = true;
+        } else {
+          saveBtn.innerHTML = 'Save';
+          saveBtn.disabled = false;
+        }
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    })
+
     }
     
     render(){
-
       return(
         <>
           <Toolbar/>

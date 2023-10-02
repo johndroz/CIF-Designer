@@ -336,3 +336,83 @@ margin: 5px;
 
 /* SIGN UP PAGE */
 /***********************************/
+#signup {
+  width: 90%;
+  max-width: 750px;
+  display: grid;
+  justify-content: center;
+  margin: 10% auto;
+}
+
+#signup button[type="submit"] {
+  width: 100px;
+  padding: 0.85em;
+  border-radius: 0.9em;
+  background-color: var(--text-alt);
+  margin: 10px auto;
+  box-shadow: 2px 2px 4px var(--text-alt);
+  color: var(--btn-main);
+  font-weight: bold;
+
+}
+
+#signup button[type="submit"]:hover {
+  background-color: var(--text-main);
+}
+
+#signup input {
+  font-size: 1em;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#message {
+  text-align: center;
+  color: red;
+}
+
+/* ACCOUNT PAGE */
+/***********************************/
+h2, #user-designs h3 {
+  text-align: center;
+  margin: 25px auto;
+}
+#user-designs {
+  display: grid;
+  width: 90%;
+  max-width: 650px;
+  margin: 10px auto;
+  justify-content: center;
+}
+#user-designs a{
+  border: none;
+  width: 150px;
+  color: var(--btn-main);
+  padding: 0.85em;
+  border-radius: 0.9em;
+  background-color: var(--text-alt);
+  margin: 2px;
+  box-shadow: 2px 2px 4px var(--text-alt);
+  text-align: center;
+}
+.newDesign {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.user-design-toolbar {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#logout {
+  text-align: center;
+  display: block;
+  padding: 10px;
+  background-color: var(--text-alt);
+  color: var(--btn-main);
+  border: none;
+  border-radius: 10px;
+  margin: 40px auto;
+}

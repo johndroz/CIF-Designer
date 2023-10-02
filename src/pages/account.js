@@ -1,4 +1,5 @@
 import React from 'react';
+import {fabric} from 'fabric';
 
 class Account extends React.Component{
 
@@ -32,15 +33,14 @@ class Account extends React.Component{
                 window.location.href = '/login';
             } else {
                 if(desLength > 0){  // VALIDATED RESPONSE START
-                    obj.designs.forEach((design, i)=>{
+                    obj.designs.forEach((design)=>{
                         
                         // WRAPPER FOR NEW DESIGN
                         let newDesign = document.createElement('div');
+                        newDesign.classList.add('newDesign');
                         designArea.append(newDesign);
     
                         // TITLE, TOOLBAR & USER DESIGN FRONT/BACK STYLES
-                        let title = document.createElement('h3');
-                        title.innerHTML = design.title;
     
                         let userTB = document.createElement('div');
                         userTB.classList.add('user-design-toolbar');
@@ -51,31 +51,50 @@ class Account extends React.Component{
                         downloadBtn.value = "Download";
                         tbDownload.append(downloadBtn);
     
-                        let tbPlacements = document.createElement('div');
-                        let btnFront = document.createElement('input');
-                        btnFront.type = 'button';
-                        btnFront.value = "Front"
-                        let btnBack = document.createElement('input');
-                        btnBack.type = 'button';
-                        btnBack.value = "Back";
-                        tbPlacements.append(btnFront, btnBack);
-    
-                        userTB.append(tbDownload, tbPlacements);
+                        userTB.append(tbDownload);
     
                         let designFront = document.createElement('canvas');
-                        designFront.classList.add('user-design-front')
+                        designFront.id = 'user-design-front';
     
                         let designBack = document.createElement('canvas');
-                        designBack.classList.add('user-design-back');
-    
+                        designBack.id = 'user-design-back';
     
                         // ADD TOOLBAR, DESIGN FRONT, DESIGN BACK
-                        newDesign.append(title, userTB, designFront, designBack);
+                        newDesign.append(userTB, designFront, designBack);
+
+                        let front = new fabric.Canvas('user-design-front');
+                        front.loadFromJSON(design.front, ()=>{
+                            let objects = front.getObjects();
+                            let scale = 300 / 800;
+                            objects.forEach(o=>{
+                                o.scaleX = scale;
+                                o.scaleY = scale;
+                            })
+                            front.setHeight(300);
+                            front.setWidth(300);
+                            front.backgroundImage.scaleX *= scale;
+                            front.backgroundImage.scaleY *= scale;
+                            front.renderAll();
+                        });
+                        let back = new fabric.Canvas('user-design-back');
+                        back.loadFromJSON(design.back, ()=>{
+                            let objects = back.getObjects();
+                            let scale = 300 / 800;
+                            objects.forEach(o=>{
+                                o.scaleX = scale;
+                                o.scaleY = scale;
+                            })
+                            back.setHeight(300);
+                            back.setWidth(300);
+                            back.backgroundImage.scaleX *= scale;
+                            back.backgroundImage.scaleY *= scale;
+                            back.renderAll();
+                        });
     
                     })
                     
                 } else {
-                    designArea.innerHTML = "<h3>No Designs Yet.</h3>"
+                    designArea.innerHTML = "<h3>No Designs Yet.</h3><br><a href='/'>Go to Designer</a>"
                 }
             } // VALIDATED RESPONSE END
             

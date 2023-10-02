@@ -1,3 +1,4 @@
+import { Form } from 'react-router-dom';
 import ImageElement from './ImageElement';
 import TextElement from './TextElement';
 
@@ -25,6 +26,7 @@ class GlobalEditor{
     textButton;
     previewButton;
     previewClose;
+    previewSave;
 
     setView(viewName){
         this.views.forEach((view)=> {
@@ -33,13 +35,13 @@ class GlobalEditor{
             const previewClass = '.' + view.prevCanvas.containerClass;
             const preview = document.querySelector(previewClass);
 
-            if(viewName != view.viewName){
+            if(viewName !== view.viewName){
                 canvas.style.display = 'none';
                 preview.style.display = 'none';
                 view.designbar.style.display = 'none';
             }
 
-            if(viewName == view.viewName){
+            if(viewName === view.viewName){
                 canvas.style.display = 'block';
                 preview.style.display = 'block';
                 view.designbar.style.display = 'flex';
@@ -91,8 +93,6 @@ class GlobalEditor{
                 
             }
 
-            
-
         });
     }
 
@@ -100,6 +100,30 @@ class GlobalEditor{
         
         this.fileInput.value = '';
         this.fileInput.click();
+    }
+
+    save(){
+        let formData = new FormData();
+        this.views.forEach((view, i)=>{
+            if(i == 0){
+                formData.append('front', JSON.stringify(view.prevCanvas.toJSON()))
+            }else{
+                formData.append('back', JSON.stringify(view.prevCanvas.toJSON()))
+            }
+        });
+
+        fetch('/save', {method: 'POST', body: new URLSearchParams(formData)})
+        .then(res=>{
+            return res.json()
+        })
+        .then(obj=>{
+            if(obj.validated){
+                window.location.href = obj.url;
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        });
     }
 
     configure(){
@@ -122,6 +146,7 @@ class GlobalEditor{
         this.textButton = document.getElementById('toolbar-add-txt');
         this.previewButton = document.getElementById('toolbar-preview');
         this.previewClose = document.getElementById('preview-close');
+        this.previewSave = document.getElementById('preview-save');
 
         // TRIGGER THE FILE INPUT TO ADD IMAGES
         this.imgButton.onclick = () => {
@@ -155,6 +180,11 @@ class GlobalEditor{
         this.previewClose.onclick = ()=>{
             this.showDesign();
             
+        }
+
+        // TOOLBAR BUTTON - SAVE PREVIEWS
+        this.previewSave.onclick = ()=>{
+            this.save();
         }
 
     }
