@@ -85,7 +85,6 @@ class ViewEditor{
             scaleY: this.canvas.height / img.height,
             excludeFromExport: true
             });
-            console.log(this.viewName + " bgImg: loaded");
         });
 
         new fabric.Image.fromURL(this.prevImg, (prevImg)=>{
@@ -95,7 +94,6 @@ class ViewEditor{
             scaleX: this.prevCanvas.width / prevImg.width,
             scaleY: this.prevCanvas.height / prevImg.height,
             });
-            console.log(this.viewName + " prevImg: loaded");
         });
 
         this.canvas.add(this.boundary);

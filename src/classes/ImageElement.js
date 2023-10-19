@@ -2,8 +2,8 @@
 import {fabric} from 'fabric';
 
 class ImageElement {
-    constructor(imgSrc, view) {
-        this.imgSrc = imgSrc;
+    constructor(imgEl, view) {
+        this.imgEl = imgEl;
         this.view = view;
     }
     id;
@@ -131,14 +131,13 @@ class ImageElement {
 
 
         // CREATE FABRIC IMAGE
-        this.image.src = this.imgSrc;
-        var image = this.image;
+        this.image = this.imgEl;
+        var img = this.image;
 
         // IMAGE LOAD BEGINS
-        this.image.onload = ()=>{
             var loadSize = 200;
-            var scale = (image.width > image.height ? loadSize / image.width  : loadSize / image.height);
-            new fabric.Image.fromURL(this.imgSrc, (img)=>{
+            var scale = (img.width > img.height ? loadSize / img.width  : loadSize / img.height);
+            new fabric.Image.fromURL(img.src, (img)=>{
 
                 // ASSOCIATE DESIGN ELEMENT WITH FABRIC OBJECT
                 this.obj = img;
@@ -319,13 +318,12 @@ class ImageElement {
                 
                 // INCREMENT DESIGN INDEX WHEN EVERYTHING HAS RENDERED ANYTIME ELEMENT ADDED TO THE CANVAS.
                 this.view.designIndex++; 
-             });
-             // IMAGE LOAD ENDS
-
-             
 
 
-        }
+             });// IMAGE LOAD ENDS
+
+
+        //}
     }
 
 

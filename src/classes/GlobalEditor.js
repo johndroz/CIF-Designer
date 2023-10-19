@@ -14,6 +14,8 @@ import TextElement from './TextElement';
 
 */
 
+
+
 class GlobalEditor{
     constructor(views){
         this.views = views;
@@ -45,12 +47,12 @@ class GlobalEditor{
                 preview.style.display = 'block';
                 view.designbar.style.display = 'flex';
                 this.activeView = view;
-                console.log(preview);
-                console.log(canvas);
             }
             
         });
     }
+
+
 
     showDesign(){
         document.getElementById('previews').style.display = 'none';
@@ -104,6 +106,9 @@ class GlobalEditor{
     save(){
         let formData = new FormData();
         this.views.forEach((view)=>{
+            //let blob = new Blob([JSON.stringify(view.prevCanvas.toJSON(), null, 2)], {type: "application/json"});
+            //blob.text().then(text=>console.log(text))
+
             formData.append(view.viewName, JSON.stringify(view.prevCanvas))
         });
 
@@ -113,7 +118,10 @@ class GlobalEditor{
         })
         .then(obj=>{
             if(obj.validated){
-                window.location.href = obj.url;
+                alert('Design saved.');
+            }
+            else{
+                alert('Something went wrong. Your design did not save.');
             }
         })
         .catch(err=>{
@@ -150,15 +158,52 @@ class GlobalEditor{
         // FILE INPUT ADDS IMAGE INTO THE VIEW
         // TOOLBAR BUTTON - ADD IMG
         this.fileInput.addEventListener('change', function(e){
-            var URL = window.webkitURL || window.URL;
-            var url = URL.createObjectURL(e.target.files[0]);
-            var img = new Image();
-            img.src = url;
-            img.onload = function(){
-                var newImg = new ImageElement(url, editor.activeView);
-                newImg.configure();      
+
+            //var URL = window.webkitURL || window.URL;
+            // = URL.createObjectURL(e.target.files[0]);
+            var url;
+            const selectedFile = e.target.files[0];
+        
+            if (selectedFile) {
+            const reader = new FileReader();
+        
+            reader.onload = function(event) {
+                // The result property contains the Base64-encoded image data.
+                const base64String = event.target.result;
+                url = base64String;
+                //var img = document.createElement('img');
+                var img = new Image();
+                img.src = url;
+                console.log('Base64 String:', url);
+                img.onload = function(){
+                    var newImg = new ImageElement(img, editor.activeView);
+                    newImg.configure();  
+                }
+            };
+        
+            // Read the file as a data URL, which will return a Base64 string.
+            //var newImg = new ImageElement(reader.readAsDataURL(selectedFile), editor.activeView);
+            reader.readAsDataURL(selectedFile)
+            
+            
             }
-        });
+
+
+
+            /*img.onload = function(){
+                var newImg = new ImageElement(url, editor.activeView);
+                newImg.configure();
+                objectUrlToBase64(url)
+                .then(base64String => {
+                    if (base64String) {
+                    console.log('Base64 String:', base64String.toString());
+                    } else {
+                    console.log('Conversion failed.');
+                    }
+                });   
+            }*/ 
+
+        }); //END OF INPUT ON-CHANGE <---
 
         // TOOLBAR BUTTON - ADD TEXT
         this.textButton.onclick = ()=>{
