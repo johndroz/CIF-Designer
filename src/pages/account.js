@@ -67,6 +67,7 @@ class Account extends React.Component{
                         // WRAPPER FOR NEW DESIGN
                         let designF = JSON.parse(design.front);
                         let designB = JSON.parse(design.back);
+                        let designID = design._id;
                         let newDesign = document.createElement('div');
                         newDesign.classList.add('newDesign');
                         designArea.appendChild(newDesign);
@@ -100,9 +101,14 @@ class Account extends React.Component{
                         deleteBtn.type  = 'button';
                         deleteBtn.value = 'Delete';
                         deleteBtn.onclick = ()=>{
-                            // TO DO - delete design from DB
-                            newDesign.innerHTML = '';
-                            newDesign.remove();
+                            // AFTER RESPONSE FROM BACKEND REMOVE DESIGN ELEMENT FROM THE UI.
+                            fetch('/delete', {method: 'POST', body: new URLSearchParams({id: designID}), redirect: 'follow'})
+                            .then(result=>{
+                                newDesign.innerHTML = '';
+                                newDesign.remove();
+                                alert('Design Deleted.');
+                            })
+                            .catch((err)=> console.log(err));
                         }
                         tbDownload.appendChild(deleteBtn);
     
