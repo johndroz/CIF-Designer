@@ -26,7 +26,7 @@ class Login extends React.Component{
 
       componentDidMount(){
         // CHECK IF USER IS LOGGED IN.
-        fetch('/login', {method: "POST", cache: "reload", redirect: 'follow'})
+        fetch('/login', {method: "POST", redirect: 'follow'})
         .then((response)=>{
           return response.json()
         })

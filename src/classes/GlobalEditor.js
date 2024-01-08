@@ -109,7 +109,8 @@ class GlobalEditor{
             //let blob = new Blob([JSON.stringify(view.prevCanvas.toJSON(), null, 2)], {type: "application/json"});
             //blob.text().then(text=>console.log(text))
 
-            formData.append(view.viewName, JSON.stringify(view.prevCanvas))
+            //formData.append(view.viewName, JSON.stringify(view.prevCanvas))
+            formData.append(view.viewName, JSON.stringify(view.prevCanvas.toDataURL({quality: 1.0})));
         });
 
         fetch('/save', {method: 'POST', body: new URLSearchParams(formData)})

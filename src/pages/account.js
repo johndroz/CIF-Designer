@@ -1,6 +1,7 @@
 import React from 'react';
 import {fabric} from 'fabric';
 import { Buffer } from "buffer";
+import { json } from 'react-router-dom';
 
 class Account extends React.Component{
 
@@ -9,7 +10,7 @@ class Account extends React.Component{
         this.username = urlParams.get('username');
         var formData = new FormData();
         formData.append('username', this.username);
-        fetch('/logout', {method: "POST", cache: "reload", body: new URLSearchParams(formData), redirect: 'follow'})
+        fetch('/logout', {method: "POST", body: new URLSearchParams(formData), redirect: 'follow'})
         .then(res=>{
             window.location.href = res.url;
         })
@@ -17,24 +18,30 @@ class Account extends React.Component{
     }
 
       render(){
+        var receivedChunks = [];
         var result;
         var urlParams = new URLSearchParams(window.location.search);
         this.username = urlParams.get('username');
         var formData = new FormData();
         formData.append('username', this.username);
         var url = '/account';
-        fetch(url, {method: "POST", cache: "reload", body: new URLSearchParams(formData), redirect: 'follow'})
+        fetch(url, {method: "POST", cache:'reload', body: new URLSearchParams(formData), redirect: 'follow'})
         .then(response=>{
         const reader = response.body.getReader();
-
+        var mergedUint8Array;
         // Function to read and process data as it arrives.
         const processStream = ({ done, value }) => {
             if (done) {
                 console.log('Stream finished.');
+                // Merge the Uint8Array chunks into a single Uint8Array.
+                mergedUint8Array = Uint8Array.from(receivedChunks.flatMap(chunk => [...chunk]));
+                let jsonString = new TextDecoder().decode(mergedUint8Array);
+                result = JSON.parse(jsonString);
                 return;
             }
         
             // Process the chunk of data as it arrives.
+            receivedChunks.push(value);
             console.log(value);
             
             // Continue reading the next chunk.
@@ -45,14 +52,10 @@ class Account extends React.Component{
             return reader.read().then(processStream);
         })
         .then(response=>{
-            console.log(response);
-            //let text = Buffer.from(result).toString('utf8');
-            
-        })
-        .then(response=>{
-            return JSON.parse(response)
+            return result
         })
         .then((obj) =>{
+            console.log(obj);
             let designArea = document.getElementById('user-designs');
             let desLength = obj.designs.length;
             if(obj.validated == false){
@@ -92,7 +95,7 @@ class Account extends React.Component{
 
 
                         // LOAD FRONT VIEW JSON INTO CANVAS
-                        let designF = JSON.parse(design.front);
+                        /*let designF = JSON.parse(design.front);
                         let front = new fabric.Canvas(design['_id']+ '-front');
                         console.log(designF);
                         front.loadFromJSON(JSON.stringify(designF), ()=>{
@@ -110,10 +113,20 @@ class Account extends React.Component{
                                 console.log("front object: ", i);
                             })
                             front.requestRenderAll();
+                        });*/
+
+                        let designF = JSON.parse(design.front);
+                        let front = new fabric.Canvas(design['_id']+ '-front');
+                        front.setHeight(300);
+                        front.setWidth(300);
+                        front.setBackgroundImage(designF, front.renderAll.bind(front), {
+                            scaleX: 300 / 800,
+                            scaleY: 300 / 800
                         });
+                        
 
                         // LOAD BACK VIEW JSON INTO CANVAS
-                        let designB = JSON.parse(design.back);
+                        /*let designB = JSON.parse(design.back);
                         let back = new fabric.Canvas(design['_id'] + '-back');
                         back.loadFromJSON(designB);
                         /*back.loadFromJSON(designB, ()=>{
@@ -132,6 +145,15 @@ class Account extends React.Component{
                             })
                             back.requestRenderAll();
                         });*/
+
+                        let designB = JSON.parse(design.back);
+                        let back = new fabric.Canvas(design['_id'] + '-back');
+                        back.setHeight(300);
+                        back.setWidth(300);
+                        back.setBackgroundImage(designB, back.renderAll.bind(back), {
+                            scaleX: 300 / 800,
+                            scaleY: 300 / 800
+                        });
     
                     })
                     
