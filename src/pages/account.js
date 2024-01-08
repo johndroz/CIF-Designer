@@ -89,13 +89,22 @@ class Account extends React.Component{
                             dlBack.download = 'Back-mock.png';
                             document.body.appendChild(dlFront);
                             document.body.appendChild(dlBack);
-
                             dlFront.click();
                             dlBack.click();
                             document.body.removeChild(dlFront);
                             document.body.removeChild(dlBack);
                         }
                         tbDownload.appendChild(downloadBtn);
+
+                        let deleteBtn = document.createElement('input');
+                        deleteBtn.type  = 'button';
+                        deleteBtn.value = 'Delete';
+                        deleteBtn.onclick = ()=>{
+                            // TO DO - delete design from DB
+                            newDesign.innerHTML = '';
+                            newDesign.remove();
+                        }
+                        tbDownload.appendChild(deleteBtn);
     
                         userTB.appendChild(tbDownload);
     
