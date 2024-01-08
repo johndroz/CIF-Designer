@@ -65,6 +65,8 @@ class Account extends React.Component{
                     obj.designs.forEach((design)=>{
 
                         // WRAPPER FOR NEW DESIGN
+                        let designF = JSON.parse(design.front);
+                        let designB = JSON.parse(design.back);
                         let newDesign = document.createElement('div');
                         newDesign.classList.add('newDesign');
                         designArea.appendChild(newDesign);
@@ -78,6 +80,21 @@ class Account extends React.Component{
                         let downloadBtn = document.createElement('input');
                         downloadBtn.type = 'button';
                         downloadBtn.value = "Download";
+                        downloadBtn.onclick = ()=>{
+                            let dlFront = document.createElement('a');
+                            let dlBack = document.createElement('a');
+                            dlFront.href = designF;
+                            dlBack.href = designB;
+                            dlFront.download = 'Front-mock.png';
+                            dlBack.download = 'Back-mock.png';
+                            document.body.appendChild(dlFront);
+                            document.body.appendChild(dlBack);
+
+                            dlFront.click();
+                            dlBack.click();
+                            document.body.removeChild(dlFront);
+                            document.body.removeChild(dlBack);
+                        }
                         tbDownload.appendChild(downloadBtn);
     
                         userTB.appendChild(tbDownload);
@@ -115,7 +132,6 @@ class Account extends React.Component{
                             front.requestRenderAll();
                         });*/
 
-                        let designF = JSON.parse(design.front);
                         let front = new fabric.Canvas(design['_id']+ '-front');
                         front.setHeight(300);
                         front.setWidth(300);
@@ -146,7 +162,6 @@ class Account extends React.Component{
                             back.requestRenderAll();
                         });*/
 
-                        let designB = JSON.parse(design.back);
                         let back = new fabric.Canvas(design['_id'] + '-back');
                         back.setHeight(300);
                         back.setWidth(300);
