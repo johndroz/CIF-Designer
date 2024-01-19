@@ -102,7 +102,7 @@ class Account extends React.Component{
                         deleteBtn.value = 'Delete';
                         deleteBtn.onclick = ()=>{
                             // AFTER RESPONSE FROM BACKEND REMOVE DESIGN ELEMENT FROM THE UI.
-                            fetch('/delete', {method: 'POST', body: new URLSearchParams({id: designID}), redirect: 'follow'})
+                            fetch('/delete', {method: 'POST', cache: "reload", body: new URLSearchParams({id: designID}), redirect: 'follow'})
                             .then(result=>{
                                 newDesign.innerHTML = '';
                                 newDesign.remove();

@@ -113,7 +113,7 @@ class GlobalEditor{
             formData.append(view.viewName, JSON.stringify(view.prevCanvas.toDataURL({quality: 1.0})));
         });
 
-        fetch('/save', {method: 'POST', body: new URLSearchParams(formData)})
+        fetch('/save', {method: 'POST', cache: "reload", body: new URLSearchParams(formData)})
         .then(res=>{
             return res.json()
         })
