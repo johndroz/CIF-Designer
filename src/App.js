@@ -7,6 +7,7 @@ import NoPage from "./pages/NoPage";
 import Login from "./pages/Login";
 import Account from './pages/account';
 import Signup from './pages/signup';
+import Footer from './pages/Footer.js';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    <Footer />
 
     </>
   );

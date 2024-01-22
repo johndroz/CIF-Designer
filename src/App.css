@@ -27,6 +27,11 @@ html {
   background-color: var(--main-bg);
 }
 
+#root {
+  min-width: 1180px;
+  min-height: 99vh;
+}
+
 :root {
   --main-bg: #ebf2f5ff;
   --main-bg-h: #d8e1ed;
@@ -53,6 +58,22 @@ nav {
   
 }
 
+#tagline {
+  padding: 0.85em;
+  margin: 10px;
+  color: var(--main-bg);
+  -webkit-text-stroke: var(--main-bg-h2) 1px;
+  /*background-color: var(--text-alt);*/
+  text-shadow: 5px 5px 15px var(--btn-main);
+  height: 1em;
+  border-radius: 15px;
+  font-size: 1.5em;
+  font-style: italic;
+  font-weight: bold;
+  /*box-shadow: 4px 4px 6px var(--text-main);*/
+  cursor: default;
+}
+
 nav ul {
   display: flex;
   flex-grow: 1;
@@ -77,6 +98,41 @@ nav ul li a {
   color: var(--btn-main);
   font-weight: bold;
 }
+
+/* FOOTER */
+/***********************************/
+footer{
+  width: 100%;
+  display: flex;
+  background-color: var(--alt-color);
+  height: 50px;
+  margin-top: 1em;
+  position: absolute;
+  top: 100%;
+}
+
+footer ul {
+  list-style: none;
+  display: flex;
+}
+
+footer ul li {
+  margin: 5px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-link {
+  font-size: small;
+  color: var(--main-bg);
+  font-weight: bold;
+}
+
+.footer-link:hover {
+  color: var(--text-main);
+}
+
 
 /* TOOLBAR */
 /***********************************/

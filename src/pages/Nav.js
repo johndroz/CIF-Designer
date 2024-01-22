@@ -4,6 +4,9 @@ function Nav(){
     return (
         <>
           <nav>
+            <span id="tagline">
+              Design. Create. Iterate.
+            </span>
             <ul>
               <li>
                 <Link to="/">Designer</Link>
