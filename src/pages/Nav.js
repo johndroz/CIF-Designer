@@ -5,7 +5,7 @@ function Nav(){
         <>
           <nav>
             <span id="tagline">
-              Design. Create. Iterate.
+              Design<b className="alt">.</b> Create<b className="alt">.</b> Iterate<b className="alt">.</b>
             </span>
             <ul>
               <li>
