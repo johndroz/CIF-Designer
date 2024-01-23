@@ -29,7 +29,13 @@ html {
 
 #root {
   min-width: 1180px;
-  min-height: 99vh;
+  min-height: 100vh;
+  
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
 }
 
 :root {
@@ -46,6 +52,7 @@ html {
 
   --text-main: #808ca1;
   --text-alt: #91a0ba;
+  --text-alt2: rgb(247, 247, 247);
 }
 
 /* NAVIGATION */
@@ -61,11 +68,14 @@ nav {
 #tagline {
   padding: 0.85em;
   margin: 10px;
-  color: var(--main-bg);
-  -webkit-text-stroke: var(--main-bg-h2) 1px;
+  /*color: var(--main-bg);*/
+  color: var(--text-alt2);
+  /*-webkit-text-stroke: var(--main-bg-h2) 1px;*/
   /*background-color: var(--text-alt);*/
-  text-shadow: 5px 5px 15px var(--btn-main);
-  height: 1em;
+  /*text-shadow: 5px 5px 15px var(--btn-main);*/
+  border-bottom: 4px solid var(--btn-main);
+  border-right: 4px solid var(--btn-main);
+  height: 0.8em;
   border-radius: 15px;
   font-size: 1.5em;
   font-style: italic;
@@ -95,7 +105,8 @@ nav ul li:hover {
 }
 
 nav ul li a {
-  color: var(--btn-main);
+  /*color: var(--btn-main);*/
+  color: var(--text-alt2);
   font-weight: bold;
 }
 
@@ -124,13 +135,18 @@ footer ul li {
 }
 
 .footer-link {
-  font-size: small;
-  color: var(--main-bg);
-  font-weight: bold;
+  font-size: 0.75em;
+  /*color: var(--main-bg);*/
+  color: var(--text-alt2);
+  font-weight: bolder;
+  text-decoration: none;
 }
 
 .footer-link:hover {
   color: var(--text-main);
+  border-bottom: 1px solid var(--btn-main);
+  text-decoration: underline;
+  text-decoration-color: var(--btn-main);
 }
 
 

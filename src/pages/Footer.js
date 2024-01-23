@@ -8,13 +8,13 @@ class Footer extends React.Component{
             <footer id="footer">
                 <ul>
                     <li>
-                        <a class="footer-link" href="">Contact</a> 
+                        <a className="footer-link" href="mailto:johndrozdzynski@outlook.com">Contact</a> 
                     </li>
                     <li>
-                        <a class="footer-link" href="">Resume</a>
+                        <a className="footer-link" href="">Resume</a>
                     </li>
                     <li>
-                        <a class="footer-link" href="">Github</a>
+                        <a className="footer-link" href="">Github</a>
                     </li>
                 </ul>
             </footer>
