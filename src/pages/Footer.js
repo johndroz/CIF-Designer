@@ -14,7 +14,7 @@ class Footer extends React.Component{
                         <a className="footer-link" href="">Resume</a>
                     </li>
                     <li>
-                        <a className="footer-link" href="">Github</a>
+                        <a target="_blank" className="footer-link" href="https://github.com/johndroz/CIF-Designer">Github</a>
                     </li>
                 </ul>
             </footer>

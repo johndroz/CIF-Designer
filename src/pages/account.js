@@ -79,6 +79,7 @@ class Account extends React.Component{
     
                         let tbDownload = document.createElement('div');
                         let downloadBtn = document.createElement('input');
+                        downloadBtn.classList.add('account-button');
                         downloadBtn.type = 'button';
                         downloadBtn.value = "Download";
                         downloadBtn.onclick = ()=>{
@@ -98,6 +99,7 @@ class Account extends React.Component{
                         tbDownload.appendChild(downloadBtn);
 
                         let deleteBtn = document.createElement('input');
+                        deleteBtn.classList.add('account-button');
                         deleteBtn.type  = 'button';
                         deleteBtn.value = 'Delete';
                         deleteBtn.onclick = ()=>{

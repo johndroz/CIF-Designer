@@ -106,7 +106,7 @@ nav ul li:hover {
 }
 
 nav ul li a {
-  color: var(--text-alt2);
+  color: var(--btn-main);
   font-weight: bold;
 }
 
@@ -140,17 +140,14 @@ footer ul li {
 
 .footer-link {
   font-size: 0.75em;
-  /*color: var(--main-bg);*/
-  color: var(--text-alt2);
+  color: var(--text-main);
   font-weight: bolder;
   text-decoration: none;
 }
 
 .footer-link:hover {
   color: var(--text-main);
-  border-bottom: 1px solid var(--btn-main);
-  text-decoration: underline;
-  text-decoration-color: var(--btn-main);
+  border-bottom: 4px solid var(--btn-main);
 }
 
 
@@ -495,4 +492,24 @@ h2, #user-designs h3 {
   border: none;
   border-radius: 10px;
   margin: 40px auto;
+}
+
+#logout {
+  cursor: pointer;
+}
+
+.account-button {
+  padding: 10px;
+  background-color: var(--text-alt);
+  color: var(--btn-main);
+  border: none;
+  border-radius: 5px;
+  margin: 2.5px;
+  font-weight: bold;
+}
+
+.account-button:hover {
+  cursor: pointer;
+  background-color: var(--text-main);
+
 }
