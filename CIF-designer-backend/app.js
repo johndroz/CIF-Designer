@@ -32,7 +32,7 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: true, limit: '75mb' }));
 
 // connect to database
-const dbUri = "mongodb+srv://jdro:jsForMoney@atlascluster.jmrnhwx.mongodb.net/designer?retryWrites=true&w=majority";
+const dbUri = process.env.APP_DB_URI;
 mongoose.connect(dbUri)
   .then((result)=>console.log('connected to db.'))
   .catch((err)=>console.log(err));
