@@ -1,7 +1,5 @@
 import React from 'react';
 import {fabric} from 'fabric';
-import { Buffer } from "buffer";
-import { json } from 'react-router-dom';
 
 class Account extends React.Component{
 
@@ -129,26 +127,6 @@ class Account extends React.Component{
 
 
                         // LOAD FRONT VIEW JSON INTO CANVAS
-                        /*let designF = JSON.parse(design.front);
-                        let front = new fabric.Canvas(design['_id']+ '-front');
-                        console.log(designF);
-                        front.loadFromJSON(JSON.stringify(designF), ()=>{
-                            let scale = 300 / 800;
-                            front.setHeight(300);
-                            front.setWidth(300);
-                            front.backgroundImage.scaleX *= scale;
-                            front.backgroundImage.scaleY *= scale;
-                            front.getObjects().forEach((o, i)=>{
-                                o.scaleX *= scale;
-                                o.scaleY *= scale;
-                                o.left *= scale;
-                                o.top *= scale;
-                                front.bringToFront(o);
-                                console.log("front object: ", i);
-                            })
-                            front.requestRenderAll();
-                        });*/
-
                         let front = new fabric.Canvas(design['_id']+ '-front');
                         front.setHeight(300);
                         front.setWidth(300);
@@ -159,26 +137,6 @@ class Account extends React.Component{
                         
 
                         // LOAD BACK VIEW JSON INTO CANVAS
-                        /*let designB = JSON.parse(design.back);
-                        let back = new fabric.Canvas(design['_id'] + '-back');
-                        back.loadFromJSON(designB);
-                        /*back.loadFromJSON(designB, ()=>{
-                            let scl = 300 / 800;
-                            back.setHeight(300);
-                            back.setWidth(300);
-                            back.backgroundImage.scaleX *= scl;
-                            back.backgroundImage.scaleY *= scl;
-                            back.getObjects().forEach((o, i)=>{
-                                o.scaleX *= scl;
-                                o.scaleY *= scl;
-                                o.left *= scl;
-                                o.top *= scl;
-                                o.selectable = false;
-                                console.log("back object: ", i);
-                            })
-                            back.requestRenderAll();
-                        });*/
-
                         let back = new fabric.Canvas(design['_id'] + '-back');
                         back.setHeight(300);
                         back.setWidth(300);

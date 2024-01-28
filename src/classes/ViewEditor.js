@@ -76,32 +76,34 @@ class ViewEditor{
     }
 
     resizeCanvas() {
-        var outerCanvasContainer = document.getElementById('design-area');
-        var ratio = this.canvas.getWidth() / this.canvas.getHeight();
-        var containerWidth  = outerCanvasContainer.clientWidth > 800 ? 800 : outerCanvasContainer.clientWidth;
-        var scale = containerWidth / this.canvas.getWidth();
-        var zoom  = this.canvas.getZoom() * scale;
-        this.canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
-        this.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
-        this.canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
-        this.prevCanvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+            var outerCanvasContainer = document.getElementById('design-area');
+            var ratio = this.canvas.getWidth() / this.canvas.getHeight();
+            var containerWidth  = outerCanvasContainer.clientWidth > 800 ? 800 : outerCanvasContainer.clientWidth;
+            var scale = containerWidth / this.canvas.getWidth();
+            var zoom  = this.canvas.getZoom() * scale;
+            this.canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+            this.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+            this.canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+            this.prevCanvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+        
     }
 
     configure(){
 
+        var desArea = document.querySelector('#design-area');
+
         window.addEventListener('resize', ()=>{
-            this.resizeCanvas();
+            if(desArea){
+                this.resizeCanvas();
+            }           
         });
         
         setTimeout(()=>{
-            let desArea = document.querySelector('#design-area');
-            if(desArea){
-                if(desArea.clientWidth < 1180){
-                    this.resizeCanvas();
-                }
+            if(desArea.clientWidth < 1180){
+                this.resizeCanvas();
             }
             
-        }, 1000);
+        }, 100);
         
 
         //PREVIEW DESIGN BACKGROUND AND PREVIEW BACKGROUND
