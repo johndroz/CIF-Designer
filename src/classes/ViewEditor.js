@@ -94,10 +94,14 @@ class ViewEditor{
         });
         
         setTimeout(()=>{
-            if(document.querySelector('#design-area').clientWidth < 1180){
-                this.resizeCanvas();
+            let desArea = document.querySelector('#design-area');
+            if(desArea){
+                if(desArea.clientWidth < 1180){
+                    this.resizeCanvas();
+                }
             }
-        }, 1000)
+            
+        }, 1000);
         
 
         //PREVIEW DESIGN BACKGROUND AND PREVIEW BACKGROUND
