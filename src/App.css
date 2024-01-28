@@ -28,7 +28,6 @@ html {
 }
 
 #root {
-  min-width: 1180px;
   min-height: 100vh;
   
 }
@@ -157,7 +156,7 @@ footer ul li {
 .toolbar {
   display: flex;
   flex-grow: 1;
-  height: 90px;
+  height: 150px;
   margin: 10px 0px;
 }
 
@@ -176,6 +175,7 @@ footer ul li {
   font-weight: bold;
   font-size: 0.9em;
   box-shadow: 2px 2px 4px var(--main-bg-h2);
+  width: 100px;
 }
 
 .placement-choice:hover, .toolbar-btn:hover {
@@ -191,6 +191,7 @@ footer ul li {
 #toolbar-add-img, #toolbar-add-txt {
   padding: 10px;
   width: 100px;
+  height: 90px;
   border-radius: 10px;
 }
 
@@ -512,4 +513,81 @@ h2, #user-designs h3 {
   cursor: pointer;
   background-color: var(--text-main);
 
+}
+
+
+/* MEDIA QUERY */
+/***********************************/
+
+@media screen and (max-width: 1180px) {
+
+  nav {
+    display: grid;
+    
+  }
+  
+  #tagline {
+    font-size: 1.2em;
+  }
+  
+  nav ul {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  nav ul li {
+    text-align: center;
+  }
+
+  div#design-area {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-grow: 1;
+    margin: 10px 0px;
+  }
+
+  .toolbar-icons {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+  }
+  
+  #toolbar-add-img, #toolbar-add-txt {
+    display: block;
+    height: 50%;
+    padding: none;
+    margin: none;
+  }
+
+  .placement-choices {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .placement-choice, .toolbar-btn{
+    width: 100px;
+  }
+
+  #design-front, #design-back {
+  width: 100%;
+  height: 100%;
+}
+
+.designbar-control {
+  width: 99%;
+  justify-content: center;
+}
+
+.swatchContainer {
+  margin: 10px 70px;
+}
+
+  
 }

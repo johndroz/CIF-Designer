@@ -26,14 +26,14 @@ function Toolbar(){
             <div className="placement-choices">
               <button id="placement-front" className="placement-choice">Front</button>
               <button id="placement-back" className="placement-choice">Back</button>
+              <div className="toolbar-finish">
+                <button id="toolbar-preview" className="toolbar-btn">Preview</button>
+              </div>
             </div>
             <div className="toolbar-icons">
                 <input type="image" src="image-icon.png" id="toolbar-add-img"></input>
                 <input id="add-img" type='file' accept=".jpg, jpeg, .png"></input>
                 <input type="image" src="add-Text.png" id="toolbar-add-txt"></input>
-            </div>
-            <div className="toolbar-finish">
-              <button id="toolbar-preview" className="toolbar-btn">Preview</button>
             </div>
             <div className="prev-buttons">
             <button id="preview-close" className="toolbar-btn">Close</button>
@@ -94,6 +94,7 @@ function Toolbar(){
     }
 
     componentDidMount(){
+
       // BOUNDARY PROPERTIES
     let designerWidth = 800;
     let designerHeight = 800;

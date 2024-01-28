@@ -75,7 +75,31 @@ class ViewEditor{
         });
     }
 
+    resizeCanvas() {
+        var outerCanvasContainer = document.getElementById('design-area');
+        var ratio = this.canvas.getWidth() / this.canvas.getHeight();
+        var containerWidth  = outerCanvasContainer.clientWidth > 800 ? 800 : outerCanvasContainer.clientWidth;
+        var scale = containerWidth / this.canvas.getWidth();
+        var zoom  = this.canvas.getZoom() * scale;
+        this.canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+        this.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+        this.canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+        this.prevCanvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+    }
+
     configure(){
+
+        window.addEventListener('resize', ()=>{
+            this.resizeCanvas();
+        });
+        
+        setTimeout(()=>{
+            if(document.querySelector('#design-area').clientWidth < 1180){
+                this.resizeCanvas();
+            }
+        }, 1000)
+        
+
         //PREVIEW DESIGN BACKGROUND AND PREVIEW BACKGROUND
         new fabric.Image.fromURL(this.bgImg, (img)=>{
             this.canvas.setBackgroundImage(img, this.canvas.renderAll.bind(this.canvas), {
@@ -98,7 +122,10 @@ class ViewEditor{
 
         this.canvas.add(this.boundary);
         
+        
     }
+
+    
 
 }
 
