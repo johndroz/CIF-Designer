@@ -32,6 +32,11 @@ html {
   
 }
 
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+
 body {
   position: relative;
   min-height: 100vh;
@@ -56,6 +61,10 @@ body {
 
 /* NAVIGATION */
 /***********************************/
+
+.menu-item.visible {
+  display: block;
+}
 
 nav {
   display: flex;
@@ -89,6 +98,7 @@ nav ul {
   flex-grow: 1;
   list-style: none;
   justify-content: end;
+  padding: 15px 0px;
 }
 
 nav ul li {
@@ -111,6 +121,21 @@ nav ul li a {
 
 nav ul li a:hover {
   color: var(--btn-main)
+}
+
+#menu-icon {
+  display: none;
+  width: 50px;
+  margin: 0px;
+  padding: 5px;
+}
+
+#menu-icon img {
+  width: 50px;
+}
+
+.menu-item {
+  display: block;
 }
 
 /* FOOTER */
@@ -534,7 +559,6 @@ h2, #user-designs h3 {
     display: grid;
     justify-content: center;
     grid-template-columns: 1fr;
-    padding: 10px;
   }
 
   nav ul li {
@@ -587,6 +611,16 @@ h2, #user-designs h3 {
 
 .swatchContainer {
   margin: 10px 70px;
+}
+
+#menu-icon {
+  display: block;
+  position: relative;
+  left: calc(100% - 65px)
+}
+
+.menu-item {
+  display: none;
 }
 
   

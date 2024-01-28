@@ -76,6 +76,7 @@ class ViewEditor{
     }
 
     resizeCanvas() {
+        if(window.location == 'http://localhost:3000/'){
             var outerCanvasContainer = document.getElementById('design-area');
             var ratio = this.canvas.getWidth() / this.canvas.getHeight();
             var containerWidth  = outerCanvasContainer.clientWidth > 800 ? 800 : outerCanvasContainer.clientWidth;
@@ -85,13 +86,18 @@ class ViewEditor{
             this.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
             this.canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
             this.prevCanvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+        }
+
         
+    }
+
+    componentWillUnmount(){
+        window.removeEventListener('resize');
     }
 
     configure(){
 
         var desArea = document.querySelector('#design-area');
-
         window.addEventListener('resize', ()=>{
             if(desArea){
                 this.resizeCanvas();
@@ -104,6 +110,8 @@ class ViewEditor{
             }
             
         }, 100);
+
+
         
 
         //PREVIEW DESIGN BACKGROUND AND PREVIEW BACKGROUND
