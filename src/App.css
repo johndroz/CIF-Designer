@@ -258,13 +258,13 @@ footer ul li {
 }
 
 #designbar {
-  min-width: 400px;
+  width: 95%;
   max-height: 800px;
   overflow: scroll;
 }
 
 #elements-front, #elements-back {
-  display: flex;
+  display: grid;
   flex-direction: column;
 }
 
@@ -272,7 +272,7 @@ footer ul li {
   position: relative;
   display: flex;
   justify-content: flex-end;
-  width: 95%;
+  width: 100%;
   min-height: 100px;
   background-color: var(--alt-color-lite);
   border-radius: 10px;
@@ -385,7 +385,7 @@ margin: 5px;
 
 #previews {
   display: none;
-  margin: 0px 20px;
+  margin: 0px auto;
   transition: 1.5s ease-in;
 }
 
@@ -411,10 +411,10 @@ margin: 5px;
   border-radius: 0.9em;
   background-color: var(--text-alt);
   margin: 10px auto;
-  box-shadow: 2px 2px 4px var(--text-alt);
+  box-shadow: 2px 2px 4px var(--text-main);
   color: var(--btn-main);
   font-weight: bold;
-
+  border: none;
 }
 
 #login button[type="submit"]:hover {
@@ -426,6 +426,8 @@ margin: 5px;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
+  border: none;
+  box-shadow: 2px 2px 4px var(--text-main);
 }
 
 #message {
@@ -449,10 +451,10 @@ margin: 5px;
   border-radius: 0.9em;
   background-color: var(--text-alt);
   margin: 10px auto;
-  box-shadow: 2px 2px 4px var(--text-alt);
+  box-shadow: 2px 2px 4px var(--text-main);
   color: var(--btn-main);
   font-weight: bold;
-
+  border: none;
 }
 
 #signup button[type="submit"]:hover {
@@ -464,6 +466,8 @@ margin: 5px;
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
+  border: none;
+  box-shadow: 2px 2px 4px var(--text-main);
 }
 
 #message {
@@ -604,13 +608,18 @@ h2, #user-designs h3 {
   height: 100%;
 }
 
+.designbar {
+  width: 96%;
+}
+
 .designbar-control {
-  width: 99%;
+  width: 100%;
   justify-content: center;
 }
 
 .swatchContainer {
   margin: 10px 70px;
+  width: 180px;
 }
 
 #menu-icon {
@@ -621,6 +630,11 @@ h2, #user-designs h3 {
 
 .menu-item {
   display: none;
+}
+
+.swatch {
+  width: 60px;
+  height: 60px;
 }
 
   

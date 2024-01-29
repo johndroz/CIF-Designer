@@ -65,12 +65,14 @@ class ViewEditor{
     }
 
     newPreview(){
+        var scale;
         new fabric.Image.fromURL(this.prevImg, (prevImg)=>{
+            scale = 800 / prevImg.width;
             this.prevCanvas.setBackgroundImage(prevImg, this.prevCanvas.renderAll.bind(this.prevCanvas), {
             originX: 0,
             originY: 0,
-            scaleX: this.prevCanvas.width / prevImg.width,
-            scaleY: this.prevCanvas.height / prevImg.height
+            scaleX: scale,
+            scaleY: scale
             });
         });
     }
@@ -82,10 +84,13 @@ class ViewEditor{
             var containerWidth  = outerCanvasContainer.clientWidth > 800 ? 800 : outerCanvasContainer.clientWidth;
             var scale = containerWidth / this.canvas.getWidth();
             var zoom  = this.canvas.getZoom() * scale;
-            this.canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
-            this.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+            
             this.canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
             this.prevCanvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+
+            this.canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+            this.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+            
         }
 
         

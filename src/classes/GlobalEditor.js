@@ -59,8 +59,8 @@ class GlobalEditor{
         document.getElementById('designs').style.display = 'block';
         document.querySelector('.prev-buttons').style.display = 'none';
         document.querySelector('.toolbar-finish').style.display = 'block';
-        document.getElementById('designbar').style.visibility = 'visible';
-        document.querySelector('.toolbar-icons').style.visibility = 'visible';
+        document.getElementById('designbar').style.display = 'block';
+        document.querySelector('.toolbar-icons').style.display = 'flex';
     }
 
     preview(){
@@ -69,8 +69,9 @@ class GlobalEditor{
         document.getElementsByClassName('prev-buttons')[0].style.display = 'block';
         document.getElementById('designs').style.display = 'none';
         document.querySelector('.toolbar-finish').style.display = 'none';
-        document.getElementById('designbar').style.visibility = 'hidden';
-        document.querySelector('.toolbar-icons').style.visibility = 'hidden';
+        document.getElementById('designbar').style.display = 'none';
+        document.querySelector('.toolbar-icons').style.display = 'none';
+
 
         // LOOP THROUGH THE VIEWS
         this.views.forEach((view)=>{
@@ -89,7 +90,8 @@ class GlobalEditor{
                     objects.forEach((obj)=>{
                         obj.set({selectable: false, opacity: 0.83});
                     });
-                    view.prevCanvas.renderAll.bind(view.prevCanvas)});
+                    view.prevCanvas.renderAll.bind(view.prevCanvas)
+                });
                     view.newPreview();
                 
             }
