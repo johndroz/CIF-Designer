@@ -145,7 +145,7 @@ footer{
   display: flex;
   background-color: var(--alt-color);
   height: 50px;
-  margin-top: 1em;
+  margin-top: 2em;
   position: absolute;
   top: 100%;
 }
@@ -545,6 +545,22 @@ h2, #user-designs h3 {
 
 }
 
+/* ABOUT PAGE */
+/***********************************/
+#about-wrapper {
+  width: 96%;
+  max-width: 850px;
+  margin: 50px auto;
+  color: var(--text-main);
+}
+
+#about-wrapper ul {
+  margin-left: 3em;
+}
+
+#about-wrapper h1, #about-wrapper h2 {
+  text-align: start;
+}
 
 /* MEDIA QUERY */
 /***********************************/
