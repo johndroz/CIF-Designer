@@ -108,11 +108,23 @@ class GlobalEditor{
     save(){
         let formData = new FormData();
         this.views.forEach((view)=>{
-            //let blob = new Blob([JSON.stringify(view.prevCanvas.toJSON(), null, 2)], {type: "application/json"});
-            //blob.text().then(text=>console.log(text))
+            //GET SIZE OF DESIGNER FROM UI
+            var container = document.getElementById('design-area');
+            var originalContainerWidth  = container.clientWidth > 800 ? 800 : container.clientWidth;
+            var originalScale = originalContainerWidth / view.canvas.getWidth();
+            var originalZoom  = view.canvas.getZoom() * originalScale;
+            
+            //CHANGE SIZE FOR SAVING TO DB
+            var zoom = 1;
+            view.prevCanvas.setDimensions({width: 800, height: 800});
+            view.prevCanvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
 
-            //formData.append(view.viewName, JSON.stringify(view.prevCanvas))
+            //SEND MODIFIED SIZE TO DB
             formData.append(view.viewName, JSON.stringify(view.prevCanvas.toDataURL({quality: 1.0})));
+
+            //CHNAGE BACK TO DIMENSIONS FROM THE UI
+            view.prevCanvas.setDimensions({width: originalContainerWidth, height: originalContainerWidth});
+            view.prevCanvas.setViewportTransform([originalZoom, 0, 0, originalZoom, 0, 0]);
         });
 
         fetch('/save', {method: 'POST', cache: "reload", body: new URLSearchParams(formData)})

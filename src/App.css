@@ -259,6 +259,7 @@ footer ul li {
 
 #designbar {
   width: 95%;
+  max-width: 400px;
   max-height: 800px;
   overflow: scroll;
 }
@@ -638,4 +639,20 @@ h2, #user-designs h3 {
 }
 
   
+}
+
+@media screen and (max-width: 650px) {
+  #user-designs {
+    margin: 5px auto;
+  }
+  
+  .newDesign .canvas-container{
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  
+  .user-design-toolbar {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 }
