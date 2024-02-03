@@ -5,7 +5,7 @@ This project demonstrates user authentication and basic CRUD functionality. This
 
 ## Tech Stack
 * React js frontend
-* Node js backend
+* Node js / Express backend
 * MongoDB with mongoose
 
 ## Features
